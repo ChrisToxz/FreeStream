@@ -26,11 +26,11 @@ class HomeController extends Controller
     public function index(Request $request)
     {
 //        $videos = Video::all();
-        $videos = Video::paginate(6);
+        $videos = Video::latest()->paginate(6);
         if($request->ajax()){
             $data = '';
             foreach($videos as $video){
-                $data .= '<div class="col">';
+                $data .= '<div class="col" id="'.$video->tag.'">';
                 $data .= '<div class="card shadow-sm">';
                 $data .= '<a href="'.url('/v/'.$video->tag).'">';
                 $data .= '<img class="card-img-top" src="'.asset('/storage/thumbs/'.$video->tag.'.jpg').'" alt="Thumbnail">';
@@ -40,8 +40,8 @@ class HomeController extends Controller
                 $data .= '<small class="text-muted">'.$video->created_at.'</small></p>';
                 $data .= '<div class="d-flex justify-content-between align-items-center">';
                 $data .= '<div class="btn-group">';
-                $data .= '<button type="button" class="btn btn-sm btn-outline-secondary">View</button>';
-                $data .= '<button type="button" class="btn btn-sm btn-outline-danger">Delete</button>';
+                $data .= '<button type="button" class="btn btn-sm btn-outline-secondary" id="button" value="edit">Edit</button>';
+                $data .= '<button type="button" class="btn btn-sm btn-outline-danger" id="button" value="delete">Delete</button>';
                 $data .= '</div>';
                 $data .= '<small class="text-muted">'.round(($video->filesize/1000000),2).' MB - '.$video->views()->count() .'views</small>';
                 $data .= '</div>';
