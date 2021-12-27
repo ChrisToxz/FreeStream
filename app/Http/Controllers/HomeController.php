@@ -26,7 +26,7 @@ class HomeController extends Controller
     public function index(Request $request)
     {
 //        $videos = Video::all();
-        $videos = Video::paginate(8);
+        $videos = Video::paginate(6);
         if($request->ajax()){
             $data = '';
             foreach($videos as $video){
