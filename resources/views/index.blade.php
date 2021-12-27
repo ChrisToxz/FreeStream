@@ -15,10 +15,18 @@
                 </p>
             </div>
         </div>
+        <div id="alert" role="alert">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong id="msg"></strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
     </section>
 
     <div class="album py-5 bg-light">
+
         <div class="container">
+
 
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="results"></div>
             <p>
@@ -28,6 +36,7 @@
     </div>
     <script>
         var page = 1;
+        var total = 0;
         load_more(page);
         $(window).scroll(function() { //detect page scroll
             if($(window).scrollTop() + $(window).height() >= $(document).height()) {
@@ -48,7 +57,12 @@
                 .done(function(data)
                 {
                     if(data.length == 0){
+                        total += data.length;
                         console.log(data.length);
+                        if(total == 0 && page == 1){
+                            $('.ajax-loading').html("Upload your first video!");
+                            return;
+                        }
                         $('.ajax-loading').html("No more videos!");
                         return;
                     }
@@ -60,6 +74,34 @@
                     alert('Oops, something went wrong.');
                 });
         }
+    </script>
+    <script type="text/javascript">
+        $('#alert').hide();
+        $(document).on('click', '#button', function(){
+            tag = $(this).closest('.col').attr('id');
+            switch(this.value){
+                case 'delete':
+                    console.log('Delete Tag: '+ tag);
+                    $.ajax({
+                        type:'DELETE',
+                        url: "{{ url('delete')}}/"+tag,
+                        success: (data) => {
+
+                            $('#msg').text('Deleted!')
+                            $('#alert').show();
+                            $(this).closest('.col').remove();
+                            console.log("Deleted");
+                            console.log(data);
+                        },
+                        error: function(data){
+                            console.log(data);
+                        }
+                    });
+
+            }
+
+
+        });
     </script>
     <script type="text/javascript">
         $(document).ready(function (e) {

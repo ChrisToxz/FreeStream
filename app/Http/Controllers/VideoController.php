@@ -59,4 +59,19 @@ class VideoController extends Controller
         ]);
 
     }
+
+    public function destroy($tag)
+    {
+        $video = Video::where('tag', $tag)->firstOrFail();
+        if($video->delete()){
+            return Response()->json([
+                "success" => true,
+                "tag" => $tag
+            ]);
+        }
+        return Response()->json([
+            "success" => false,
+            "file" => ''
+        ]);
+    }
 }

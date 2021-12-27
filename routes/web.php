@@ -24,6 +24,7 @@ Route::get('/test', function(){
 //    $duration = date('H:i:s.v', $file['playtime_seconds']);
 });
 Route::get('/', 'App\Http\Controllers\HomeController@index');
+Route::delete('/delete/{tag}', 'App\Http\Controllers\VideoController@destroy');
 
 Route::get('/v/{tag}', 'App\Http\Controllers\VideoController@show');
 Route::post('upload', 'App\Http\Controllers\VideoController@store');
