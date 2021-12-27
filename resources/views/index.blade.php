@@ -49,7 +49,7 @@
                 {
                     if(data.length == 0){
                         console.log(data.length);
-                        $('.ajax-loading').html("No more records!");
+                        $('.ajax-loading').html("No more videos!");
                         return;
                     }
                     $('.ajax-loading').hide();
@@ -57,7 +57,7 @@
                 })
                 .fail(function(jqXHR, ajaxOptions, thrownError)
                 {
-                    alert('No more videos');
+                    alert('Oops, something went wrong.');
                 });
         }
     </script>
@@ -80,7 +80,8 @@
                     processData: false,
                     success: (data) => {
                         this.reset();
-                        alert('File has been uploaded successfully');
+                        location.reload();
+                        console.log("File uploaded!");
                         console.log(data);
                     },
                     error: function(data){
