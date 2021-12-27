@@ -23,9 +23,38 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        $videos = Video::all();
-        return View::make('index')->with('videos', $videos);
+//        $videos = Video::all();
+        $videos = Video::paginate(8);
+        if($request->ajax()){
+            $data = '';
+            foreach($videos as $video){
+                $data .= '<div class="col">';
+                $data .= '<div class="card shadow-sm">';
+                $data .= '<a href="'.url('/v/'.$video->tag).'">';
+                $data .= '<img class="card-img-top" src="'.asset('/storage/thumbs/'.$video->tag.'.jpg').'" alt="Thumbnail">';
+                $data .= '</a>';
+                $data .= '<div class="card-body">';
+                $data .= '<p class="card-text">'.$video->title.'<small class="text-muted">'.$video->duration_string.'</small></p>';
+                $data .= '<div class="d-flex justify-content-between align-items-center">';
+                $data .= '<div class="btn-group">';
+                $data .= '<button type="button" class="btn btn-sm btn-outline-secondary">View</button>';
+                $data .= '<button type="button" class="btn btn-sm btn-outline-danger">Delete</button>';
+                $data .= '</div>';
+                $data .= '<small class="text-muted">'.round(($video->filesize/1000000),2).' MB - '.$video->views()->count() .'views</small>';
+                $data .= '</div>';
+                $data .= '</div>';
+                $data .= '</div>';
+                $data .= '</div>';
+            }
+            return $data;
+        }
+        return View::make('index');
+    }
+
+    public function load()
+    {
+
     }
 }

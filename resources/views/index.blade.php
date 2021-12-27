@@ -20,30 +20,47 @@
     <div class="album py-5 bg-light">
         <div class="container">
 
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                @foreach ($videos as $video)
-                <div class="col">
-                    <div class="card shadow-sm">
-                        <a href="{{ url('/v/'.$video->tag) }}">
-                            <img class="card-img-top" src="{{ asset('/storage/thumbs/'.$video->tag.'.jpg') }}" alt="Card image cap">
-                        </a>
-                        <div class="card-body">
-                            <p class="card-text">{{ $video->title }}  <small class="text-muted">{{ $video->duration_string }}</small></p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                    <button type="button" class="btn btn-sm btn-outline-danger">Delete</button>
-                                </div>
-                                <small class="text-muted">{{ round(($video->filesize/1000000),2) }} MB - {{ $video->views()->count() }} views</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @endforeach
-            </div>
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="results"></div>
+            <p>
+                <div class="ajax-loading text-center"><img src="{{ asset('img/loading.gif') }}" /></div>
+            </p>
         </div>
     </div>
-
+    <script>
+        var page = 1;
+        load_more(page);
+        $(window).scroll(function() { //detect page scroll
+            if($(window).scrollTop() + $(window).height() >= $(document).height()) {
+                page++;
+                load_more(page); //load content
+            }
+        });
+        function load_more(page){
+            $.ajax({
+                url: "?page=" + page,
+                type: "get",
+                datatype: "html",
+                beforeSend: function()
+                {
+                    $('.ajax-loading').show();
+                }
+            })
+                .done(function(data)
+                {
+                    if(data.length == 0){
+                        console.log(data.length);
+                        $('.ajax-loading').html("No more records!");
+                        return;
+                    }
+                    $('.ajax-loading').hide();
+                    $("#results").append(data);
+                })
+                .fail(function(jqXHR, ajaxOptions, thrownError)
+                {
+                    alert('No more videos');
+                });
+        }
+    </script>
     <script type="text/javascript">
         $(document).ready(function (e) {
             $.ajaxSetup({
@@ -73,4 +90,5 @@
             });
         });
     </script>
+
 @endsection
