@@ -1,17 +1,75 @@
 @extends('layouts.app')
 
 @section('content')
+    <style>
+
+        .file-drop-area {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 450px;
+            max-width: 100%;
+            padding: 25px;
+            border: 1px dashed rgba(255, 255, 255, 0.4);
+            border-radius: 3px;
+            transition: 0.2s;
+            margin: auto;
+        }
+
+        .file-drop-area:hover .choose-file-button{
+            background-color: rgb(211 211 211);
+            border: 1px solid rgb(17 17 17 / 20%);
+        }
+
+
+        .choose-file-button {
+            flex-shrink: 0;
+            background-color: rgb(211 211 211 / 75%);
+            border: 1px solid rgb(17 17 17 / 20%);
+            border-radius: 3px;
+            padding: 8px 15px;
+            margin-right: 10px;
+            font-size: 12px;
+            text-transform: uppercase
+        }
+
+
+
+        .file-message {
+            font-size: small;
+            font-weight: 300;
+            line-height: 1.4;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin: auto;
+        }
+
+        .file-input {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            cursor: pointer;
+            opacity: 0
+        }
+
+        .mt-100 {
+            margin-top: 100px
+        }
+    </style>
     <section class="py-5 text-center container">
         <div class="row py-lg-5">
             <div class="col-lg-6 col-md-8 mx-auto">
                 <h1 class="fw-light">{{ config('app.name') }}</h1>
                 <p class="lead text-muted">Simple, quick & opensource</p>
-                <p>
-                    <form method="POST" enctype="multipart/form-data" id="video" action="javascript:void(0)" >
-                        <label class="form-label" for="file">Video upload</label>
-                        <input type="file" class="form-control" name="file" id="file" />
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                    <p class="text-center">
+                    <form id="upload">
+                        <div class="loader"><img src="{{ asset('img/loading.gif') }}" /></div>
+                        <div class="file-drop-area"> <span class="choose-file-button">Choose video</span> <span class="file-message">or drop video here</span> <input class="file-input" type="file" name="file" id="file">
                     </form>
+                    </div>
                 </p>
             </div>
         </div>
@@ -30,7 +88,7 @@
 
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="results"></div>
             <p>
-                <div class="ajax-loading text-center"><img src="{{ asset('img/loading.gif') }}" /></div>
+            <div class="ajax-loading text-center"><img src="{{ asset('img/loading.gif') }}" /></div>
             </p>
         </div>
     </div>
@@ -110,18 +168,30 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            $('#video').submit(function(e) {
+            $(".loader").hide();
+            $('input[type=file]').change(function(e) {
                 e.preventDefault();
-                var formData = new FormData(this);
+                console.log(this);
+                var fd = new FormData();
+                var files = $('#file')[0].files;
+                fd.append('file',files[0]);
+
                 $.ajax({
                     type:'POST',
                     url: "{{ url('upload')}}",
-                    data: formData,
+                    data: fd,
                     cache:false,
                     contentType: false,
                     processData: false,
+                    beforeSend:function(){
+                        $('.choose-file-button').hide();
+                        $('.file').attr('disabled', 'disabled');
+                        $('.choose-file-button').attr('disabled', 'disabled');
+                        $('.file-message').html('Uploading...');
+                        $('.file').val('');
+                        $(".loader").show();
+                    },
                     success: (data) => {
-                        this.reset();
                         location.reload();
                         console.log("File uploaded!");
                         console.log(data);
