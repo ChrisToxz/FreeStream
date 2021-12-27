@@ -36,7 +36,7 @@ class HomeController extends Controller
                 $data .= '<img class="card-img-top" src="'.asset('/storage/thumbs/'.$video->tag.'.jpg').'" alt="Thumbnail">';
                 $data .= '</a>';
                 $data .= '<div class="card-body">';
-                $data .= '<p class="card-text">'.$video->title.'<small class="text-muted">'.$video->duration_string.'</small></p>';
+                $data .= '<p class="card-text">'.$video->title.'<small class="text-muted"> '.$video->duration_string.'</small></p>';
                 $data .= '<div class="d-flex justify-content-between align-items-center">';
                 $data .= '<div class="btn-group">';
                 $data .= '<button type="button" class="btn btn-sm btn-outline-secondary">View</button>';
