@@ -58,6 +58,29 @@
         .mt-100 {
             margin-top: 100px
         }
+
+
+        div#dropzone {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 9999999999;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            transition: visibility 175ms, opacity 175ms;
+            display: table;
+            text-shadow: 1px 1px 5px #00000075;
+            color: #fff;
+            background: rgba(0, 0, 0, 0.45);
+            font: bold 42px Oswald, DejaVu Sans, Tahoma, sans-serif;
+        }
+        div#textnode {
+            display: table-cell;
+            text-align: center;
+            vertical-align: middle;
+            transition: font-size 175ms;
+        }
     </style>
     <section class="py-5 text-center container">
         <div class="row py-lg-5">
@@ -66,8 +89,16 @@
                 <p class="lead text-muted">Simple, quick & opensource</p>
                     <p class="text-center">
                     <form id="upload">
-                        <div class="loader"><img src="{{ asset('img/loading.gif') }}" /></div>
-                        <div class="file-drop-area"> <span class="choose-file-button">Choose video</span> <span class="file-message">or drop video here</span> <input class="file-input" type="file" name="file" id="file">
+                    <div style="visibility:hidden; opacity:0" id="dropzone">
+                        <div id="textnode">Drop It Like It's Hot</div>
+                    </div>
+                    <button type="button" class="btn btn-outline-primary">Select video</button> <input type="file" id="file" style="visibility: hidden; position: absolute">
+
+                    <p class="text-muted">or drop it</p>
+
+                    <div id="text"></div>
+{{--                        <div class="loader"><img src="{{ asset('img/loading.gif') }}" /></div>--}}
+{{--                        <div class="file-drop-area"> <span class="choose-file-button">Choose video</span> <span class="file-message">or drop video here</span> <input class="file-input" type="file" name="file" id="file">--}}
                     </form>
                     </div>
                 </p>
@@ -93,6 +124,92 @@
         </div>
     </div>
     <script>
+
+        $(document).on('click', 'button', function(){
+            $('#file').click();
+        });
+
+
+        var lastTarget = null;
+
+        function isFile(evt) {
+            var dt = evt.dataTransfer;
+
+            for (var i = 0; i < dt.types.length; i++) {
+                if (dt.types[i] === "Files") {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        window.addEventListener("dragenter", function (e) {
+            if (isFile(e)) {
+                lastTarget = e.target;
+                document.querySelector("#dropzone").style.visibility = "";
+                document.querySelector("#dropzone").style.opacity = 1;
+                document.querySelector("#textnode").style.fontSize = "48px";
+            }
+        });
+
+        window.addEventListener("dragleave", function (e) {
+            e.preventDefault();
+            if (e.target === document || e.target === lastTarget) {
+                document.querySelector("#dropzone").style.visibility = "hidden";
+                document.querySelector("#dropzone").style.opacity = 0;
+                document.querySelector("#textnode").style.fontSize = "42px";
+            }
+        });
+
+        window.addEventListener("dragover", function (e) {
+            e.preventDefault();
+        });
+
+        window.addEventListener("drop", function (e) {
+            e.preventDefault();
+            document.querySelector("#dropzone").style.visibility = "hidden";
+            document.querySelector("#dropzone").style.opacity = 0;
+            document.querySelector("#textnode").style.fontSize = "42px";
+            if(e.dataTransfer.files.length == 1)
+            {
+                document.querySelector("#text").innerHTML =
+                    "<b>File selected:</b><br>" + e.dataTransfer.files[0].name;
+
+                upload(e.dataTransfer.files[0]);
+                //fcutnionm redirect
+            }
+        });
+
+        function upload(file){
+            var fd = new FormData();
+            fd.append('file',file);
+
+            $.ajax({
+                type:'POST',
+                url: "{{ url('upload')}}",
+                data: fd,
+                cache:false,
+                contentType: false,
+                processData: false,
+                beforeSend:function(){
+                    $('.choose-file-button').hide();
+                    $('.file').attr('disabled', 'disabled');
+                    $('.choose-file-button').attr('disabled', 'disabled');
+                    $('.file-message').html('Uploading...');
+                    $('.file').val('');
+                    $(".loader").show();
+                },
+                success: (data) => {
+                    location.reload();
+                    console.log("File uploaded!");
+                    console.log(data);
+                },
+                error: function(data){
+                    console.log(data);
+                }
+            });
+        }
+
         var page = 1;
         var total = 0;
         load_more(page);
@@ -171,35 +288,36 @@
             $(".loader").hide();
             $('input[type=file]').change(function(e) {
                 e.preventDefault();
-                console.log(this);
-                var fd = new FormData();
-                var files = $('#file')[0].files;
-                fd.append('file',files[0]);
+                upload($('#file')[0].files[0]);
+                {{--console.log(this);--}}
+                {{--var fd = new FormData();--}}
+                {{--var files = $('#file')[0].files;--}}
+                {{--fd.append('file',files[0]);--}}
 
-                $.ajax({
-                    type:'POST',
-                    url: "{{ url('upload')}}",
-                    data: fd,
-                    cache:false,
-                    contentType: false,
-                    processData: false,
-                    beforeSend:function(){
-                        $('.choose-file-button').hide();
-                        $('.file').attr('disabled', 'disabled');
-                        $('.choose-file-button').attr('disabled', 'disabled');
-                        $('.file-message').html('Uploading...');
-                        $('.file').val('');
-                        $(".loader").show();
-                    },
-                    success: (data) => {
-                        location.reload();
-                        console.log("File uploaded!");
-                        console.log(data);
-                    },
-                    error: function(data){
-                        console.log(data);
-                    }
-                });
+                {{--$.ajax({--}}
+                {{--    type:'POST',--}}
+                {{--    url: "{{ url('upload')}}",--}}
+                {{--    data: fd,--}}
+                {{--    cache:false,--}}
+                {{--    contentType: false,--}}
+                {{--    processData: false,--}}
+                {{--    beforeSend:function(){--}}
+                {{--        $('.choose-file-button').hide();--}}
+                {{--        $('.file').attr('disabled', 'disabled');--}}
+                {{--        $('.choose-file-button').attr('disabled', 'disabled');--}}
+                {{--        $('.file-message').html('Uploading...');--}}
+                {{--        $('.file').val('');--}}
+                {{--        $(".loader").show();--}}
+                {{--    },--}}
+                {{--    success: (data) => {--}}
+                {{--        location.reload();--}}
+                {{--        console.log("File uploaded!");--}}
+                {{--        console.log(data);--}}
+                {{--    },--}}
+                {{--    error: function(data){--}}
+                {{--        console.log(data);--}}
+                {{--    }--}}
+                {{--});--}}
             });
         });
     </script>
