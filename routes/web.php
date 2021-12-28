@@ -41,6 +41,8 @@ Route::get('/', 'App\Http\Controllers\HomeController@index');
 Route::delete('/delete/{tag}', 'App\Http\Controllers\VideoController@destroy');
 
 Route::get('/v/{tag}', 'App\Http\Controllers\VideoController@show');
+Route::get('/e/{tag}', 'App\Http\Controllers\VideoController@edit');
+Route::post('/e/{tag}', 'App\Http\Controllers\VideoController@update');
 Route::post('upload', 'App\Http\Controllers\VideoController@store');
 //Route::post('upload', 'App\Http\Controllers\VideoController@store')->middleware('auth');
 
