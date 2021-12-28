@@ -19,4 +19,12 @@ class Video extends Model
         $view->video_id = $this->id;
         $view->save();
     }
+
+    public function updateFile($path){
+        $this->file = $path;
+    }
+
+    public static function byTag($tag){
+        return Video::where('tag', $tag)->firstOrFail();
+    }
 }
