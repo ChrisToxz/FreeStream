@@ -40,7 +40,7 @@ class HomeController extends Controller
                 $data .= '<small class="text-muted">'.$video->created_at.'</small></p>';
                 $data .= '<div class="d-flex justify-content-between align-items-center">';
                 $data .= '<div class="btn-group">';
-                $data .= '<button type="button" class="btn btn-sm btn-outline-secondary" id="button" value="edit">Edit</button>';
+                $data .= '<a href="'.url('/e/'.$video->tag).'" class="btn btn-sm btn-outline-secondary" id="button" value="edit">Edit</a>';
                 $data .= '<button type="button" class="btn btn-sm btn-outline-danger" id="button" value="delete">Delete</button>';
                 $data .= '</div>';
                 $data .= '<small class="text-muted">'.round(($video->filesize/1000000),2).' MB - '.$video->views()->count() .'views</small>';
