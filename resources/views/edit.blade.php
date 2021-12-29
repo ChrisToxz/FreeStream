@@ -6,15 +6,26 @@
 
             <div class="card text-center">
                 <div class="card-body">
-                    <form method="POST" action="{{ $video->tag ? url('e/'.$video->tag) : url('e') }}">
-                        @csrf
+                    <video controls autoplay muted loop >
+                        <source src="{{ asset('/storage/videos/'.$video->file) }}" type="video/mp4">
+                        Your browser does not support HTML video.
+                    </video>
+                    <p>
 
-                        <div class="row mb-3">
-                            <input id="start" type="text" name="start" value="0" required>
-                            <input id="end" type="text" name="end" value="0" required>
-                        </div>
-                        <button class="btn-primary" type="submit">Edit</button>
-                    </form>
+                        <form class="row" method="POST" action="{{ $video->tag ? url('e/'.$video->tag) : url('e') }}">
+                            @csrf
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Start</span>
+                                <input type="text" class="form-control" name="start" placeholder="0">
+                                <span class="input-group-text">End</span>
+                                <input type="text" class="form-control" name="end" placeholder="0">
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary">Edit</button>
+                            </div>
+                            </div>
+                        </form>
+                    </p>
                 </div>
                 <div class="card-footer">
                     <div class="row">
