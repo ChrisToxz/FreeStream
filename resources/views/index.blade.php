@@ -92,7 +92,7 @@
                     <div style="visibility:hidden; opacity:0" id="dropzone">
                         <div id="textnode">Drop It Like It's Hot</div>
                     </div>
-                    <button type="button" class="btn btn-outline-primary">Select video</button> <input type="file" id="file" style="visibility: hidden; position: absolute">
+                    <button type="button" id="upload" class="btn btn-outline-primary">Select video</button> <input type="file" id="file" style="visibility: hidden; position: absolute">
 
                     <p class="text-muted">or drop it</p>
 
@@ -125,7 +125,7 @@
     </div>
     <script>
 
-        $(document).on('click', 'button', function(){
+        $(document).on('click', 'button#upload', function(){
             $('#file').click();
         });
 
