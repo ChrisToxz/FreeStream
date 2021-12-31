@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\videoView;
 use App\Models\Video;
 use Hashids\Hashids;
 use Illuminate\Http\Request;
@@ -16,7 +17,9 @@ class VideoController extends Controller
     public function show($tag){
         //TODO: Event?
         $video = Video::where('tag', $tag)->firstOrFail();
-        $video->increase();
+//        $video->increase();
+//        event(new videoView($video));
+        videoView::dispatch($video);
         return View::make('view')->with('video', $video);
     }
     public function store(Request $request)
