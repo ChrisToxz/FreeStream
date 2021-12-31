@@ -17,11 +17,12 @@ class CreateVideosTable extends Migration
             $table->id();
             $table->string('tag')->unique();
             $table->string('title');
+            $table->string('hash');
             $table->string('file');
-            $table->integer('duration');
-            $table->string('duration_string');
-            $table->integer('filesize');
-            $table->json('video');
+            $table->integer('duration')->nullable();
+            $table->string('duration_string')->nullable();
+            $table->integer('filesize')->nullable();
+            $table->json('video')->nullable();
             $table->timestamps();
         });
     }
