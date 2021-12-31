@@ -3,10 +3,16 @@
 namespace App\Listeners;
 
 use App\Events\videoUploaded;
+use App\Jobs\ConvertVideoForStreaming;
+use App\Jobs\CreateThumb;
+use FFMpeg\Coordinate\Dimension;
+use FFMpeg\Format\Video\X264;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rules\Dimensions;
 use Pawlox\VideoThumbnail\VideoThumbnail;
 use ProtoneMedia\LaravelFFMpeg\Support\FFMpeg;
 
@@ -32,16 +38,24 @@ class processVideo
     {
         $path = public_path('storage/videos/'.$event->video->file);
 
-        $media = FFMpeg::fromDisk('public')->open('videos/IXAe-1640974459HaSFMH3n1lgfLbLhUsnadTjy6fs18XEo4Q0D3WIb.mp4');
-        $save = $media->getFrameFromSeconds(0.1)->export()->toDisk('public')->save('thumbs/test.jpg');
 
-       // (new VideoThumbnail)->createThumbnail($path, public_path('storage/thumbs/'), $event->video->tag.'.jpg', 1, 1920, 1080);
-        $media = FFMpeg::fromDisk('public')->open('videos/IXAe-1640974459HaSFMH3n1lgfLbLhUsnadTjy6fs18XEo4Q0D3WIb.mp4');
+        // generate stream filename
+        $streamhash = Hash::make($event->video->file).'.mp4';
+        $event->video->streamhash = $streamhash;
+
         $getID3 = new \getID3;
         $data = $getID3->analyze($path);
-        $event->video->duration = $media->getDurationInMiliseconds();
-        $event->video->filesize = '10';
-        $event->video->video = json_encode($data["video"]);
+
+        $event->video->size = $data['filesize'];
+        $event->video->duration = round($data['playtime_seconds'],2);
+
+//        $json = [];
+//        $json['resolution_x'] = $data['video']['resolution_x'];
+//        $json['resolution_y'] = $data['video']['resolution_y'];
+//        $event->video->video = $json;
         $event->video->save();
+
+
+
     }
 }

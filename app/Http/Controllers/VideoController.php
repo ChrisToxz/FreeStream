@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Events\videoUploaded;
 use App\Events\videoView;
+use App\Http\Requests\StoreVideoRequest;
+use App\Jobs\ConvertVideoForStreaming;
+use App\Jobs\CreateThumb;
 use App\Models\Video;
 use Hashids\Hashids;
 use Illuminate\Http\Request;
@@ -24,27 +27,30 @@ class VideoController extends Controller
         videoView::dispatch($video);
         return View::make('view')->with('video', $video);
     }
-    public function store(Request $request)
+    public function store(StoreVideoRequest $request)
     {
-        request()->validate([
-            'file'  => 'required|mimes:mp4|max:1024000',
-        ]);
         if ($files = $request->file('file')) {
 
             $tag = Str::random(4);
             $hash = time().$request->file->hashName();
             $filename = $tag.'-'.$hash;
 
-            $request->file->storeAs('public/videos', $filename);
+            $request->file->storeAs('', $filename, 'videos');
 
             $video = new Video();
             $video->tag = $tag;
             $video->hash = $hash;
-            $video->file = $filename;
             $video->title = $files->getClientOriginalName();
-            $video->save();
+
             Log::info($video->filename);
             videoUploaded::dispatch($video);
+            //Create thumb
+            CreateThumb::dispatch($video);
+            //Create stream file
+            $job = new ConvertVideoForStreaming($video);
+            $this->dispatch($job);
+            $video->job_id = $job->getJobStatusId();
+            $video->save();
 
             return Response()->json([
                 "success" => true,

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
+use Imtigger\LaravelJobStatus\JobStatus;
+use ProtoneMedia\LaravelFFMpeg\Support\FFMpeg;
 
 class HomeController extends Controller
 {
@@ -34,8 +36,11 @@ class HomeController extends Controller
 
     public function loadMore($videos)
     {
+
         $data = '';
         foreach($videos as $video){
+
+            $data .= JobStatus::find($video->job_id)->progress_now;
             $data .= '<div class="col" id="'.$video->tag.'">';
             $data .= '<div class="card shadow-sm">';
             $data .= '<a href="'.url('/v/'.$video->tag).'">';

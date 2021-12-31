@@ -16,13 +16,19 @@ class CreateVideosTable extends Migration
         Schema::create('videos', function (Blueprint $table) {
             $table->id();
             $table->string('tag')->unique();
+
             $table->string('title');
+
             $table->string('hash');
-            $table->string('file');
+            $table->string('streamhash')->nullable();
+
             $table->integer('duration')->nullable();
-            $table->string('duration_string')->nullable();
-            $table->integer('filesize')->nullable();
-            $table->json('video')->nullable();
+            $table->string('video')->nullable();
+
+            $table->integer('size')->nullable();
+            $table->integer('streamsize')->nullable();
+
+            $table->integer('job_id')->nullable();
             $table->timestamps();
         });
     }
