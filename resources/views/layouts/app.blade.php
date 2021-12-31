@@ -21,7 +21,7 @@
         crossorigin="anonymous"></script>
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
+    @stack('styles')
     <style>
         .bd-placeholder-img {
             font-size: 1.125rem;
@@ -87,5 +87,5 @@
             @yield('content')
         </main>
     </div>
-</body>
+</body>`
 </html>

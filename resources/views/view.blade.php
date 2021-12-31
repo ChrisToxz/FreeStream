@@ -11,8 +11,18 @@
                             Your browser does not support HTML video.
                         </video>
                     </p>
+                    <p class="float-end">
+                        <a href="{{ url('/e/'.$video->tag)}}" class="btn btn-sm btn-outline-secondary" id="button" value="edit">Edit</a>
+                        <button type="button" class="btn btn-sm btn-outline-danger" id="button" value="delete">Delete</button>
+                    </p>
                 </div>
                 <div class="card-footer">
+                    <p>
+
+                    </p>
+                    <div class="row">
+
+                    </div>
                     <div class="row">
                         <div class="col-md-3">
                             {{ $video->created_at }}
@@ -28,34 +38,4 @@
             </div>
         </div>
     </div>
-
-    <script type="text/javascript">
-        $(document).ready(function (e) {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $('#video').submit(function(e) {
-                e.preventDefault();
-                var formData = new FormData(this);
-                $.ajax({
-                    type:'POST',
-                    url: "{{ url('upload')}}",
-                    data: formData,
-                    cache:false,
-                    contentType: false,
-                    processData: false,
-                    success: (data) => {
-                        this.reset();
-                        alert('File has been uploaded successfully');
-                        console.log(data);
-                    },
-                    error: function(data){
-                        console.log(data);
-                    }
-                });
-            });
-        });
-    </script>
 @endsection

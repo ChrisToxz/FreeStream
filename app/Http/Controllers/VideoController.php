@@ -14,10 +14,10 @@ class VideoController extends Controller
 {
 
     public function show($tag){
+        //TODO: Event?
         $video = Video::where('tag', $tag)->firstOrFail();
         $video->increase();
         return View::make('view')->with('video', $video);
-
     }
     public function store(Request $request)
     {
@@ -44,6 +44,7 @@ class VideoController extends Controller
             $video->title = $files->getClientOriginalName();
             $video->save();
 
+            //TODO: Processing job
             (new \Pawlox\VideoThumbnail\VideoThumbnail)->createThumbnail(public_path('storage/videos/'.$filename), public_path('storage/thumbs/'), $tag.'.jpg', 1, 1920, 1080);
 
             return Response()->json([

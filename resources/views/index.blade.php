@@ -1,116 +1,33 @@
 @extends('layouts.app')
-
+@push('styles')
+    <link src="css/index.css"></link>
+@endpush
 @section('content')
-    <style>
 
-        .file-drop-area {
-            position: relative;
-            display: flex;
-            align-items: center;
-            width: 450px;
-            max-width: 100%;
-            padding: 25px;
-            border: 1px dashed rgba(255, 255, 255, 0.4);
-            border-radius: 3px;
-            transition: 0.2s;
-            margin: auto;
-        }
-
-        .file-drop-area:hover .choose-file-button{
-            background-color: rgb(211 211 211);
-            border: 1px solid rgb(17 17 17 / 20%);
-        }
-
-
-        .choose-file-button {
-            flex-shrink: 0;
-            background-color: rgb(211 211 211 / 75%);
-            border: 1px solid rgb(17 17 17 / 20%);
-            border-radius: 3px;
-            padding: 8px 15px;
-            margin-right: 10px;
-            font-size: 12px;
-            text-transform: uppercase
-        }
-
-
-
-        .file-message {
-            font-size: small;
-            font-weight: 300;
-            line-height: 1.4;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            margin: auto;
-        }
-
-        .file-input {
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 100%;
-            cursor: pointer;
-            opacity: 0
-        }
-
-        .mt-100 {
-            margin-top: 100px
-        }
-
-
-        div#dropzone {
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 9999999999;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            transition: visibility 175ms, opacity 175ms;
-            display: table;
-            text-shadow: 1px 1px 5px #00000075;
-            color: #fff;
-            background: rgba(0, 0, 0, 0.45);
-            font: bold 42px Oswald, DejaVu Sans, Tahoma, sans-serif;
-        }
-        div#textnode {
-            display: table-cell;
-            text-align: center;
-            vertical-align: middle;
-            transition: font-size 175ms;
-        }
-    </style>
-    <section class="py-5 text-center container">
-        <div class="row py-lg-5">
-            <div class="col-lg-6 col-md-8 mx-auto">
-                <h1 class="fw-light">{{ config('app.name') }}</h1>
-                <p class="lead text-muted">Simple, quick & opensource</p>
-                    <p class="text-center">
-                    <form id="upload">
+<section class="py-5 text-center container">
+    <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+            <h1 class="fw-light">{{ config('app.name') }}</h1>
+            <p class="lead text-muted">Simple, quick & opensource</p>
+            <p class="text-center">
+                <form id="upload">
                     <div style="visibility:hidden; opacity:0" id="dropzone">
                         <div id="textnode">Drop It Like It's Hot</div>
                     </div>
                     <button type="button" id="upload" class="btn btn-outline-primary">Select video</button> <input type="file" id="file" style="visibility: hidden; position: absolute">
-
                     <p class="text-muted">or drop it</p>
-
                     <div id="text"></div>
-{{--                        <div class="loader"><img src="{{ asset('img/loading.gif') }}" /></div>--}}
-{{--                        <div class="file-drop-area"> <span class="choose-file-button">Choose video</span> <span class="file-message">or drop video here</span> <input class="file-input" type="file" name="file" id="file">--}}
-                    </form>
-                    </div>
-                </p>
-            </div>
+                </form>
+            </p>
         </div>
-        <div id="alert" role="alert">
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong id="msg"></strong>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
+    </div>
+    <div id="alert" role="alert">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong id="msg"></strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-    </section>
+    </div>
+</section>
 
     <div class="album py-5 bg-light">
         <div class="container">
