@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Events\videoUploaded;
 use App\Events\videoView;
 use App\Listeners\addNewView;
+use App\Listeners\processVideo;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -22,6 +24,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         videoView::class => [
             addNewView::class,
+        ],
+        videoUploaded::class => [
+            processVideo::class,
         ],
     ];
 

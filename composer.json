@@ -8,6 +8,7 @@
         "php": "^7.3|^8.0",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
+        "imtigger/laravel-job-status": "^1.2",
         "james-heinrich/getid3": "^1.9",
         "lakshmaji/thumbnail": "^1.4",
         "laravel/framework": "^8.75",

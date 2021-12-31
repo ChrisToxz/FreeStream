@@ -27,4 +27,8 @@ class Video extends Model
     public static function byTag($tag){
         return Video::where('tag', $tag)->firstOrFail();
     }
+
+    public function getFileAttribute(){
+        return $this->tag.'-'.$this->hash;
+    }
 }
