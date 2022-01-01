@@ -45,8 +45,9 @@ class VideoController extends Controller
             Log::info($video->filename);
             videoUploaded::dispatch($video);
             //Create thumb
-            CreateThumb::dispatch($video);
+            CreateThumb::dispatchAfterResponse($video);
             //Create stream file
+
             $job = new ConvertVideoForStreaming($video);
             $this->dispatch($job);
             $video->job_id = $job->getJobStatusId();
