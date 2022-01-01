@@ -3,7 +3,75 @@
     <link src="css/index.css"></link>
 @endpush
 @section('content')
+<style>
+    .spinner {
+        height: 30px;
+        width: 30px;
+        margin: auto;
+        display: flex;
 
+        -webkit-animation: rotation .6s infinite linear;
+        -moz-animation: rotation .6s infinite linear;
+        -o-animation: rotation .6s infinite linear;
+        animation: rotation .6s infinite linear;
+        border-left: 6px solid rgba(0, 174, 239, .15);
+        border-right: 6px solid rgba(0, 174, 239, .15);
+        border-bottom: 6px solid rgba(0, 174, 239, .15);
+        border-top: 6px solid rgba(0, 174, 239, .8);
+        border-radius: 100%;
+    }
+
+    @-webkit-keyframes rotation {
+        from {
+            -webkit-transform: rotate(0deg);
+        }
+        to {
+            -webkit-transform: rotate(359deg);
+        }
+    }
+
+    @-moz-keyframes rotation {
+        from {
+            -moz-transform: rotate(0deg);
+        }
+        to {
+            -moz-transform: rotate(359deg);
+        }
+    }
+
+    @-o-keyframes rotation {
+        from {
+            -o-transform: rotate(0deg);
+        }
+        to {
+            -o-transform: rotate(359deg);
+        }
+    }
+
+    @keyframes rotation {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(359deg);
+        }
+    }
+
+    #overlay {
+        position: absolute;
+        /*display: none;*/
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0,0,0,0.5);
+        z-index: 2;
+        cursor: pointer;
+    }
+
+
+
+</style>
 <section class="py-5 text-center container">
     <div class="row py-lg-5">
         <div class="col-lg-6 col-md-8 mx-auto">
@@ -31,7 +99,18 @@
 
     <div class="album py-5 bg-light">
         <div class="container">
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="results"></div>
+
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="results">
+{{--                <div class="col" id="rBEX">--}}
+{{--                    <div class="card shadow-sm">--}}
+{{--                        <a href="http://localhost/v/rBEX"><img class="card-img-top" src="http://localhost/storage/thumbs/rBEX.jpg" alt="Thumbnail"></a>--}}
+{{--                        <div class="card-body">--}}
+{{--                            <div class="spinner"></div>--}}
+{{--                            <p class="text-center">Processing video</p>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+            </div>
             <p>
             <div class="ajax-loading text-center"><img src="{{ asset('img/loading.gif') }}" /></div>
             </p>
