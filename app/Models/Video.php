@@ -19,6 +19,10 @@ class Video extends Model
         return $this->hasOne(JobStatus::class, 'id', 'job_id');
     }
 
+    public function retention(){
+        return $this->hasOne(Retention::class);
+    }
+
     public function increase(){
         $view = new View();
         $view->video_id = $this->id;
@@ -32,10 +36,10 @@ class Video extends Model
     public static function byTag($tag){
         return Video::where('tag', $tag)->firstOrFail();
     }
-
-    public function getFileAttribute(){
-        return $this->tag.'-'.$this->hash;
-    }
+//
+//    public function getFileAttribute(){
+//        return $this->tag.'-'.$this->hash;
+//    }
 
     public function getSizeAttribute($size){
         return round($size/1000000,2);

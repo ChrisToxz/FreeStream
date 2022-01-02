@@ -39,10 +39,9 @@ class VideoController extends Controller
 
             $video = new Video();
             $video->tag = $tag;
-            $video->hash = $hash;
+            $video->file = $filename;
             $video->title = $files->getClientOriginalName();
-
-            Log::info($video->filename);
+            $video->save();
             videoUploaded::dispatch($video);
             //Create thumb
             CreateThumb::dispatchAfterResponse($video);

@@ -38,22 +38,24 @@ class processVideo
     public function handle(videoUploaded $event)
     {
         $path = public_path('storage/videos/'.$event->video->file);
+        Log::info($path);
+
 
 
         // generate stream filename
-        $streamhash = Str::random(40).'.mp4';
-        $event->video->streamhash = $streamhash;
+        $streamhash = $event->video->tag.'-'.Str::random(40).'.mp4';
+        $event->video->streamfile = $streamhash;
 
-        $getID3 = new \getID3;
-        $data = $getID3->analyze($path);
-
-        $event->video->size = $data['filesize'];
-        $event->video->duration = round($data['playtime_seconds'],2);
-
-        $json = [];
-        $json['resolution_x'] = $data['video']['resolution_x'];
-        $json['resolution_y'] = $data['video']['resolution_y'];
-        $event->video->video = json_encode($json);
+//        $getID3 = new \getID3;
+//        $data = $getID3->analyze($path);
+//
+//        $event->video->size = $data['filesize'];
+//        $event->video->duration = round($data['playtime_seconds'],2);
+//
+//        $json = [];
+//        $json['resolution_x'] = $data['video']['resolution_x'];
+//        $json['resolution_y'] = $data['video']['resolution_y'];
+//        $event->video->video = json_encode($json);
         $event->video->save();
 
 

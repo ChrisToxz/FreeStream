@@ -39,7 +39,7 @@ class HomeController extends Controller
 
         $data = '';
         foreach($videos as $video){
-
+            $data .= $video->streamfile;
             $data .= '<div class="col" id="'.$video->tag.'">';
             $data .= '<div class="card h-100 shadow-sm">';
             $data .= '<a href="'.url('/v/'.$video->tag).'">';
