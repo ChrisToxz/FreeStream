@@ -23,7 +23,7 @@ class CreateVideosTable extends Migration
             $table->string('streamhash')->nullable();
 
             $table->integer('duration')->nullable();
-            $table->string('video')->nullable();
+            $table->json('video')->nullable();
 
             $table->integer('size')->nullable();
             $table->integer('streamsize')->nullable();
