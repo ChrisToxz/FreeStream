@@ -40,15 +40,13 @@ class HomeController extends Controller
         $data = '';
         foreach($videos as $video){
 
-            $jobStatus = JobStatus::find($video->job_id);
-
             $data .= '<div class="col" id="'.$video->tag.'">';
             $data .= '<div class="card h-100 shadow-sm">';
             $data .= '<a href="'.url('/v/'.$video->tag).'">';
             $data .= '<img class="card-img-top" src="'.asset('/storage/thumbs/'.$video->tag.'.jpg').'" alt="Thumbnail">';
             $data .= '</a>';
             $data .= '<div class="card-body">';
-            if($jobStatus->is_finished){
+            if($video->job->is_finished){
                 $data .= '<p class="card-text">'.$video->title.'<small class="text-muted"> - '.$video->duration_string.'</small><br>';
                 $data .= '<small class="text-muted">'.$video->created_at.'</small></p>';
                 $data .= '<div class="d-flex justify-content-between align-items-center">';
@@ -60,7 +58,7 @@ class HomeController extends Controller
                 $data .= '</div>';
             }else{
                 $data .= '<div class="spinner"></div>';
-                $data .= '<p class="text-center">Processing video '.$jobStatus->progress_now.'%</p>';
+                $data .= '<p class="text-center">Processing video '.$video->job->progress_now.'%</p>';
             }
 
             $data .= '</div>';
