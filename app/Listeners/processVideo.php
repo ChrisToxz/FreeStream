@@ -8,6 +8,7 @@ use App\Jobs\CreateThumb;
 use FFMpeg\Coordinate\Dimension;
 use FFMpeg\Format\Video\X264;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
@@ -37,28 +38,29 @@ class processVideo
      */
     public function handle(videoUploaded $event)
     {
-        $path = public_path('storage/videos/'.$event->video->file);
-        Log::info($path);
-
-
+        //Create thumb
+        CreateThumb::dispatchAfterResponse($event->video);
 
         // generate stream filename
-        $streamhash = $event->video->tag.'-'.Str::random(40).'.mp4';
+        $streamhash = Str::random(40).'.mp4';
         $event->video->streamfile = $streamhash;
 
-//        $getID3 = new \getID3;
-//        $data = $getID3->analyze($path);
-//
-//        $event->video->size = $data['filesize'];
-//        $event->video->duration = round($data['playtime_seconds'],2);
-//
-//        $json = [];
-//        $json['resolution_x'] = $data['video']['resolution_x'];
-//        $json['resolution_y'] = $data['video']['resolution_y'];
-//        $event->video->video = json_encode($json);
+        // Init ID3
+        $getID3 = new \getID3;
+        // Read original file
+        $path = public_path('storage/videos/'.$event->video->file);
+        $data = $getID3->analyze($path);
+
+        // Save filesize
+        $event->video->size = $data['filesize'];
+        // Save duration in seconds
+        $event->video->duration = round($data['playtime_seconds'],2);
+
+        // Save other interesting data
+        $json = [];
+        $json['resolution_x'] = $data['video']['resolution_x'];
+        $json['resolution_y'] = $data['video']['resolution_y'];
+        $event->video->video = json_encode($json);
         $event->video->save();
-
-
-
     }
 }
