@@ -1,8 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    <script src="https://unpkg.com/plyr@3" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdn.plyr.io/3.6.12/plyr.css" />
     <div class="album py-5 bg-light">
         <div class="container">
 
@@ -11,17 +9,10 @@
                     {{ $video->title }}
                 </div>
                 <div class="card-body">
-                    <p>
-                        <video controls crossorigin playsinline poster="{{ asset('/storage/thumbs/'.$video->tag.'.jpg') }}">
-                            <source src="{{ asset('/storage/videos/'.$video->file) }}" type="video/mp4" size="1080">
-                            <!-- Fallback for browsers that don't support the <video> element -->
-                            <a href="{{ asset('/storage/videos/'.$video->file) }}" download>Download</a>
+                    <p><video controls autoplay muted loop >
+                            <source src="{{ asset('/storage/videos/'.$video->file) }}" type="video/mp4">
+                            Your browser does not support HTML video.
                         </video>
-
-{{--                        <video controls autoplay muted loop >--}}
-{{--                            <source src="{{ asset('/storage/videos/'.$video->file) }}" type="video/mp4">--}}
-{{--                            Your browser does not support HTML video.--}}
-{{--                        </video>--}}
                     </p>
                     <p class="float-end">
                         <a href="{{ url('/e/'.$video->tag)}}" class="btn btn-sm btn-outline-secondary" id="button" value="edit">Edit</a>
