@@ -19,11 +19,9 @@ use Pawlox\VideoThumbnail\VideoThumbnail;
 class VideoController extends Controller
 {
 
-    public function show($tag){
-        //TODO: Event?
+    public function show($tag)
+    {
         $video = Video::where('tag', $tag)->firstOrFail();
-//        $video->increase();
-//        event(new videoView($video));
         videoView::dispatch($video);
         return View::make('view')->with('video', $video);
     }
@@ -31,31 +29,33 @@ class VideoController extends Controller
     {
         if ($files = $request->file('file')) {
 
-            $tag = Str::random(4);
-            $hash = time().$request->file->hashName();
-            $filename = $tag.'-'.$hash;
+            $tag = Str::random(4); // generate tag
+            $hash = $request->file->hashName(); // generator hash
 
-            $request->file->storeAs('', $filename, 'videos');
+            $request->file->storeAs($tag, $hash, 'videos'); // store original video
 
-            $video = new Video();
-            $video->tag = $tag;
-            $video->hash = $hash;
-            $video->title = $files->getClientOriginalName();
+            // Create record
+            $video = Video::create(array(
+                'tag' => $tag,
+                'file' => $tag.'/'.$hash,
+                'title' => $files->getClientOriginalName()
+            ));
 
-            Log::info($video->filename);
+            //Dispatch processVideo.php
             videoUploaded::dispatch($video);
-            //Create thumb
-            CreateThumb::dispatch($video);
-            //Create stream file
+
+            //Create stream files
             $job = new ConvertVideoForStreaming($video);
             $this->dispatch($job);
-            $video->job_id = $job->getJobStatusId();
+            $jobid = $job->getJobStatusId();
+            $video->job_id = $jobid;
             $video->save();
 
             return Response()->json([
                 "success" => true,
                 "tag" => $tag,
-                "file" => $filename
+                "file" => $tag.'/'.$hash,
+                "job" => $jobid
             ]);
 
         }
