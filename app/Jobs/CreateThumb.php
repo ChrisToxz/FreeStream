@@ -34,6 +34,6 @@ class CreateThumb implements ShouldQueue
     public function handle()
     {
         $media = FFMpeg::fromDisk('videos')->open($this->video->file);
-        $save = $media->getFrameFromSeconds(0.1)->export()->toDisk('thumbs')->save($this->video->tag.'.jpg');
+        $media->getFrameFromSeconds(0.1)->export()->toDisk('videos')->save($this->video->tag.'/thumb.jpg');
     }
 }
