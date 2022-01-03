@@ -9,6 +9,7 @@ use Imtigger\LaravelJobStatus\JobStatus;
 class Video extends Model
 {
     use HasFactory;
+    protected $fillable = array('tag', 'file', 'title', 'size');
 
     public function views()
     {
