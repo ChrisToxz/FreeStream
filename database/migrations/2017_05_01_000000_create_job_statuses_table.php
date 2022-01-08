@@ -25,7 +25,7 @@ class CreateJobStatusesTable extends Migration
             $table->timestamp('started_at')->nullable();
             $table->timestamp('finished_at')->nullable();
 
-            $table->integer('video_id')->nullable();
+            $table->string('video_tag')->nullable();
         });
     }
 

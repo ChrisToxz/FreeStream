@@ -27,7 +27,7 @@ class ConvertVideoForStreaming implements ShouldQueue
     public function __construct(Video $video)
     {
         $this->video = $video;
-        $this->prepareStatus(['video_id' => $video->id]);
+        $this->prepareStatus(['video_tag' => $video->tag]);
     }
 
     /**
