@@ -10,15 +10,15 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Str;
 use Imtigger\LaravelJobStatus\Trackable;
 use ProtoneMedia\LaravelFFMpeg\Support\FFMpeg;
 
 class ConvertVideoForStreaming implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, Trackable;
+
     public $video;
+
     /**
      * Create a new job instance.
      *
@@ -26,8 +26,8 @@ class ConvertVideoForStreaming implements ShouldQueue
      */
     public function __construct(Video $video)
     {
-        $this->prepareStatus();
         $this->video = $video;
+        $this->prepareStatus(['video_id' => $video->id]);
     }
 
     /**
@@ -39,38 +39,41 @@ class ConvertVideoForStreaming implements ShouldQueue
     {
         // trackable job
         $this->setProgressMax(100);
+        //stream
+        $superLowBitrate = (new X264)->setKiloBitrate(100360);
+        $lowBitrate = (new X264)->setKiloBitrate(100720);
+        $midBitrate = (new X264)->setKiloBitrate(101080);
+        $highBitrate = (new X264)->setKiloBitrate(101440);
+        $superHighBitrate = (new X264)->setKiloBitrate(102160);
 
-
-
-        $lowBitrateFormat = (new X264('libmp3lame', 'libx264'))->setKiloBitrate(250);
-        $midBitrateFormat = (new X264('libmp3lame', 'libx264'))->setKiloBitrate(500);
-        $highBitrateFormat = (new X264('libmp3lame', 'libx264'))->setKiloBitrate(1000);
-
-        FFMpeg::fromDisk('videos')->open($this->video->file)
-//            ->resize(960,540)
-            ->export()->onProgress(function ($percentage) {
-                $this->setProgressNow($percentage/3);
-            })->toDisk('videos')->inFormat($lowBitrateFormat)->save($this->video->tag.'/low-'.$this->video->streamfile);
-
-        FFMpeg::fromDisk('videos')->open($this->video->file)
-//            ->resize(960,540)
-            ->export()->onProgress(function ($percentage) {
-                $this->setProgressNow($percentage/3);
-            })->toDisk('videos')->inFormat($midBitrateFormat)->save($this->video->tag.'/mid-'.$this->video->streamfile);
-
-        FFMpeg::fromDisk('videos')->open($this->video->file)
-//            ->resize(960,540)
-            ->export()->onProgress(function ($percentage) {
-                $this->setProgressNow($percentage/3);
-            })->toDisk('videos')->inFormat($highBitrateFormat)->save($this->video->tag.'/high-'.$this->video->streamfile);
-
-        $path = public_path("storage/videos/".$this->video->tag."/low-".$this->video->streamfile);
-        $getID3 = new \getID3;
-        $data = $getID3->analyze($path);
-        Log::info('2');
-        Log::info($data);
-        $this->video->streamsize = $data['filesize'];
-        $this->video->save();
+        FFMpeg::fromDisk('videos')
+            ->open($this->video->OriginalPath)
+            ->exportForHLS()
+            ->onProgress(function ($percentage) {
+                $this->setProgressNow($percentage);
+            })
+            ->setSegmentLength(10) // optional
+            ->setKeyFrameInterval(48) // optional
+            ->addFormat($superLowBitrate, function($media) {
+                $media->scale(640, 360);
+            })
+            ->addFormat($lowBitrate, function($media) {
+                $media->scale(1280, 720);
+            })
+            ->addFormat($midBitrate, function($media) {
+                $media->scale(1920, 1080);;
+            })
+            ->addFormat($highBitrate, function($media) {
+                $media->scale(2560, 1440);
+            })
+            ->addFormat($superHighBitrate, function($media) {
+                $media->scale(3840, 2160);
+            })
+            ->useSegmentFilenameGenerator(function ($name, $format, $key, callable $segments, callable $playlist) {
+                $segments("{$name}-{$format->getKiloBitrate()}-{$key}-%03d.ts");
+                $playlist("{$name}-{$format->getKiloBitrate()}-{$key}.m3u8");
+            })
+            ->toDisk('videos')->save($this->video->tag.'/'.$this->video->streamhash.'.m3u8');
 
     }
 }

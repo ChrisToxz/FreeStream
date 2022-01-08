@@ -46,14 +46,6 @@ return [
             'driver' => 'local',
             'root' => storage_path('app/public/videos'),
         ],
-        'streams' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public/videos/streams'),
-        ],
-        'thumbs' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public/thumbs'),
-        ],
 
         's3' => [
             'driver' => 's3',
@@ -81,7 +73,6 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
-        public_path('videos') => storage_path('storage/videos/'),
     ],
 
 ];

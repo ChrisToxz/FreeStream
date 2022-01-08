@@ -13,7 +13,9 @@ use Illuminate\Queue\SerializesModels;
 class videoUploaded
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
+
     public $video;
+
     /**
      * Create a new event instance.
      *
