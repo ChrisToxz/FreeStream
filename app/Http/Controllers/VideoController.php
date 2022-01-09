@@ -48,7 +48,7 @@ class VideoController extends Controller
     public function show(Video $tag)
     {
 
-        return View::make('view')->with(['video' => $tag]);
+        return View::make('view2')->with(['video' => $tag]);
     }
 
     /**
