@@ -19,7 +19,9 @@ class CreateVideosTable extends Migration
             $table->string('title');
             $table->string('hash');
             $table->string('streamhash')->nullable();
-
+//            $table->json('files');
+            $table->enum('type', \App\Enums\VideoType::getValues())
+                ->default(\App\Enums\VideoType::Original);
             $table->timestamps();
         });
     }

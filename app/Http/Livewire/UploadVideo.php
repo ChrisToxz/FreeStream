@@ -16,15 +16,17 @@ class UploadVideo extends Component
 {
     use WithFileUploads;
 
-    public $video, $streamable;
+    public $video, $title, $type;
 
     public function save()
     {
         $this->validate([
             'video' => 'required|file|mimetypes:video/mp4,video/mpeg,video/x-matroska',
+            'type' => 'required'
         ]);
 
         $tag = Str::random(4); // generate tag
+        $title = $this->title ?? $this->video->getClientOriginalName();
         $hash = $this->video->hashName(); // generator hash
 
         // Create Thumb
@@ -36,21 +38,22 @@ class UploadVideo extends Component
         $video = Video::create(array(
             'tag' => $tag,
             'hash' => $hash,
-            'title' => $this->video->getClientOriginalName()
+            'title' => $title
         ));
 
         videoUploaded::dispatch($video);
 
+        session()->flash('message', 'Video uploaded!');
         $this->emit('videosRefresh');
 
-        if($this->streamable){
-            //Create stream files
-            Log::info("ConvertVideoForStreaming");
-            ConvertVideoForStreaming::dispatch($video);
-        }else{
-            Log::info("ConvertVideo");
-            ConvertVideo::dispatch($video);
-        }
+//        if($this->streamable){
+//            //Create stream files
+//            Log::info("ConvertVideoForStreaming");
+//            ConvertVideoForStreaming::dispatch($video);
+//        }else{
+//            Log::info("ConvertVideo");
+//            ConvertVideo::dispatch($video);
+//        }
 
 
     }
