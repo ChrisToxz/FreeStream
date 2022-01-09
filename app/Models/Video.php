@@ -27,4 +27,8 @@ class Video extends Model
     public function getProgressNowAttribute(){
         return $this->job->progress_now ?? "x";
     }
+
+    public function getFinishedAttribute(){
+        return isset($this->job->is_finished) ?? false;
+    }
 }
