@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Events\videoUploaded;
 use App\Jobs\ConvertVideoForStreaming;
+use App\Jobs\ConvertVideo;
 use App\Models\Video;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
@@ -15,7 +16,7 @@ class UploadVideo extends Component
 {
     use WithFileUploads;
 
-    public $video;
+    public $video, $streamable;
 
     public function save()
     {
@@ -42,8 +43,15 @@ class UploadVideo extends Component
 
         $this->emit('videosRefresh');
 
-        //Create stream files
-        ConvertVideoForStreaming::dispatch($video);
+        if($this->streamable){
+            //Create stream files
+            Log::info("ConvertVideoForStreaming");
+            ConvertVideoForStreaming::dispatch($video);
+        }else{
+            Log::info("ConvertVideo");
+            ConvertVideo::dispatch($video);
+        }
+
 
     }
 

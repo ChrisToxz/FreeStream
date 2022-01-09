@@ -28,6 +28,7 @@ class ConvertVideoForStreaming implements ShouldQueue
     {
         $this->video = $video;
         $this->prepareStatus(['video_tag' => $video->tag]);
+
     }
 
     /**
