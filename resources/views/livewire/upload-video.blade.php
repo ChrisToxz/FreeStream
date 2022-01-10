@@ -24,13 +24,12 @@
 
                     </div>
                     <div class="input-group mb-3">
-                        <select class="form-select form-select-sm" wire:model="type">
+                        <select  class="form-select form-select-sm @error('type') is-invalid @enderror" wire:model="type">
                             <option selected>Upload method</option>
-                            <option value="1">Original file - Keep file as it is</option>
-                            <option value="2">X264 - Optimized for web</option>
-                            <option value="3">Streamable - HLS Stream protocol</option>
+                            <option value="0">Original file - Keep file as it is</option>
+                            <option value="1">X264 - Optimized for web</option>
+                            <option value="2">Streamable - HLS Stream protocol</option>
                         </select>
-                        @error('type') <span class="error">{{ $message }}</span> @enderror
                     </div>
                 </div>
             </div>

@@ -29,6 +29,8 @@
 </head>
 <body>
     <div id="app">
+        @flasher_render <!-- this render all flasher notifications. -->
+        @flasher_livewire_render <!-- this render livewire notifications only. -->
         <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
