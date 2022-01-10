@@ -60,8 +60,10 @@ class ConvertVideo implements ShouldQueue
 //            ->resize(960,540)
             ->export()->onProgress(function ($percentage) {
                 $this->setProgressNow($percentage/3);
-            })->toDisk('videos')->inFormat($highBitrateFormat)->save($this->video->tag.'/high-'.$this->video->streamhash.'.mp4');
+            })->toDisk('videos')->inFormat($highBitrateFormat)->save($this->video->tag.'/'.$this->video->streamhash.'.mp4');
 
+        $this->video->files = ['mp4' => $this->video->streamhash.'.mp4'];
+        $this->video->save();
 //        $path = public_path("storage/videos/".$this->video->tag."/low-".$this->video->streamfile);
 //        $getID3 = new \getID3;
 //        $data = $getID3->analyze($path);

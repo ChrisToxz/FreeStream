@@ -21,6 +21,7 @@ class LoadVideos extends Component
 
     public function render()
     {
+
 //        $videos = Video::latest()->paginate($this->perPage);
         $videos = Video::latest()->get();
         return view('livewire.load-videos', ['videos' => $videos]);

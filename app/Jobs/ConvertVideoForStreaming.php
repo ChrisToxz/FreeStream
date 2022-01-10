@@ -61,20 +61,22 @@ class ConvertVideoForStreaming implements ShouldQueue
             ->addFormat($lowBitrate, function($media) {
                 $media->scale(1280, 720);
             })
-            ->addFormat($midBitrate, function($media) {
-                $media->scale(1920, 1080);;
-            })
-            ->addFormat($highBitrate, function($media) {
-                $media->scale(2560, 1440);
-            })
-            ->addFormat($superHighBitrate, function($media) {
-                $media->scale(3840, 2160);
-            })
+//            ->addFormat($midBitrate, function($media) {
+//                $media->scale(1920, 1080);;
+//            })
+//            ->addFormat($highBitrate, function($media) {
+//                $media->scale(2560, 1440);
+//            })
+//            ->addFormat($superHighBitrate, function($media) {
+//                $media->scale(3840, 2160);
+//            })
             ->useSegmentFilenameGenerator(function ($name, $format, $key, callable $segments, callable $playlist) {
                 $segments("{$name}-{$format->getKiloBitrate()}-{$key}-%03d.ts");
                 $playlist("{$name}-{$format->getKiloBitrate()}-{$key}.m3u8");
             })
             ->toDisk('videos')->save($this->video->tag.'/'.$this->video->streamhash.'.m3u8');
 
+        $this->video->files = ['m3u8' => $this->video->streamhash.'.m3u8'];
+        $this->video->save();
     }
 }

@@ -25,6 +25,7 @@ class UploadVideo extends Component
             'type' => 'required'
         ]);
 
+        toastr()->livewire()->title('Preparing!')->addInfo('Preparing video!');
         $tag = Str::random(4); // generate tag
         $title = $this->title ?? $this->video->getClientOriginalName();
         $hash = $this->video->hashName(); // generator hash
@@ -38,24 +39,29 @@ class UploadVideo extends Component
         $video = Video::create(array(
             'tag' => $tag,
             'hash' => $hash,
-            'title' => $title
+            'title' => $title,
+            'type'  => $this->type,
         ));
 
         videoUploaded::dispatch($video);
 
-        session()->flash('message', 'Video uploaded!');
+
+        toastr()->livewire()->title('Success!')->addSuccess('Video uploaded!');
         $this->emit('videosRefresh');
 
-//        if($this->streamable){
-//            //Create stream files
-//            Log::info("ConvertVideoForStreaming");
-//            ConvertVideoForStreaming::dispatch($video);
-//        }else{
-//            Log::info("ConvertVideo");
-//            ConvertVideo::dispatch($video);
-//        }
+        switch ($this->type){
+            case 0://original
+                $video->files = ['mp4' => $hash];
+                $video->save();
+                break;
+            case 1: //x264
+                ConvertVideo::dispatch($video);
+                break;
+            case 2://streamable
+                ConvertVideoForStreaming::dispatch($video);
+                break;
 
-
+        }
     }
 
 //    public function render()

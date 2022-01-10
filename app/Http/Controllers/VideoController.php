@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Video;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\View;
 
 class VideoController extends Controller
@@ -45,10 +46,20 @@ class VideoController extends Controller
      * @param  \App\Models\Video  $video
      * @return \Illuminate\Http\Response
      */
-    public function show(Video $tag)
+    public function show(Video $video)
     {
 
-        return View::make('view2')->with(['video' => $tag]);
+        switch ($video->type){
+            case 0:
+                return View::make('view')->with(['video' => $video]);
+                break;
+            case 1:
+                return View::make('view')->with(['video' => $video]);
+                break;
+            case 2:
+                return View::make('view2')->with(['video' => $video]);
+                break;
+        }
     }
 
     /**

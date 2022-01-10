@@ -17,7 +17,7 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/v/{tag}', [App\Http\Controllers\VideoController::class, 'show']);
+Route::get('/v/{video}', [App\Http\Controllers\VideoController::class, 'show']);
 
 Auth::routes();
 

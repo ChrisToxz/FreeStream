@@ -30,7 +30,7 @@
 {{--                        </video>--}}
                         <video-js id=vid1 width=600 height=300 class="vjs-default-skin" controls>
                             <source
-                                src="{{ asset('/storage/videos/'.$video->tag.'/'.$video->streamhash) }}.m3u8"
+                                src="{{ asset('/storage/videos/'.$video->tag.'/'.$video->files->m3u8) }}"
                                 type="application/x-mpegURL">
                         </video-js>
 
