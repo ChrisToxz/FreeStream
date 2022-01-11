@@ -4,46 +4,6 @@
 All changes to this project will be documented in this file.
 <!--- END HEADER -->
 
-## [2.0.0-rc.1](https://github.com/ChrisToxz/FreeStream/compare/v1.0.0-rc.1...v2.0.0-rc.1) (2022-01-11)
-
----
-
-## [1.0.0-rc.1](https://github.com/ChrisToxz/FreeStream/compare/v1.0.0-beta.1...v1.0.0-rc.1) (2022-01-11)
-
----
-
-## [1.0.0-beta.1](https://github.com/ChrisToxz/FreeStream/compare/v0.0.3-beta.1...v1.0.0-beta.1) (2022-01-11)
-
----
-
-## [0.0.3-beta.1](https://github.com/ChrisToxz/FreeStream/compare/v0.0.3-alpha.2...v0.0.3-beta.1) (2022-01-11)
-
----
-
-## [0.0.3-alpha.2](https://github.com/ChrisToxz/FreeStream/compare/v0.0.2-alpha.2...v0.0.3-alpha.2) (2022-01-11)
-
----
-
-## [0.0.2-alpha.2](https://github.com/ChrisToxz/FreeStream/compare/v0.0.2-alpha.1...v0.0.2-alpha.2) (2022-01-11)
-
----
-
-## [0.0.2-alpha.1](https://github.com/ChrisToxz/FreeStream/compare/v0.0.2...v0.0.2-alpha.1) (2022-01-11)
-
----
-
-## [0.0.2-alpha.1](https://github.com/ChrisToxz/FreeStream/compare/v0.0.2...v0.0.2-alpha.1) (2022-01-11)
-
----
-
-## [0.0.2](https://github.com/ChrisToxz/FreeStream/compare/v0.0.1...v0.0.2) (2022-01-11)
-### Bug Fixes
-
-* Dummy ([58b0e0](https://github.com/ChrisToxz/FreeStream/commit/58b0e017c1f6e2a69820f6780e4a5235b977d5f7))
-
-
----
-
 ## [0.0.1](https://github.com/ChrisToxz/FreeStream/compare/96eb676bd1480e9d80af786e187301f374f210c8...v0.0.1) (2022-01-11)
 ### Features
 
@@ -67,6 +27,7 @@ All changes to this project will be documented in this file.
 * Button upload trigger ([368a32](https://github.com/ChrisToxz/FreeStream/commit/368a32acde41d8352a1df74bf39c369fa912195c))
 * Change videos pagination to 6 due grid width ([0bf5da](https://github.com/ChrisToxz/FreeStream/commit/0bf5da45cbf39e66f8099555d8e2ed21a4515e41))
 * Create thumb before redirect ([5dbd74](https://github.com/ChrisToxz/FreeStream/commit/5dbd7438d04ec75cdfdc327ea3a987c90bda1cbd))
+* Dummy ([58b0e0](https://github.com/ChrisToxz/FreeStream/commit/58b0e017c1f6e2a69820f6780e4a5235b977d5f7))
 * Job `finished` attribute ([68b80b](https://github.com/ChrisToxz/FreeStream/commit/68b80bf7cbfaaa77e1cf0008ab3052fba6125f47))
 * Json video data ([1700a7](https://github.com/ChrisToxz/FreeStream/commit/1700a72181feadd764a9aee318ab24854ccfc30a))
 * Notifications ([ca3c6a](https://github.com/ChrisToxz/FreeStream/commit/ca3c6a02fed5a89003f5ebbc5b054fd434fe0fcf))
