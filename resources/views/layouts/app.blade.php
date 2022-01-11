@@ -80,6 +80,9 @@
                                 </div>
                             </li>
                         @endguest
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">@version</a>
+                        </li>
                     </ul>
                 </div>
             </div>
