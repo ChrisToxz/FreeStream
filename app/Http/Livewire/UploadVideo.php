@@ -18,14 +18,13 @@ class UploadVideo extends Component
 
     public $video, $title, $type;
 
-    public function save()
+    public function store()
     {
         $this->validate([
             'video' => 'required|file|mimetypes:video/mp4,video/mpeg,video/x-matroska',
             'type' => 'required'
         ]);
 
-        toastr()->livewire()->title('Preparing!')->addInfo('Preparing video!');
         $tag = Str::random(4); // generate tag
         $title = $this->title ?? $this->video->getClientOriginalName();
         $hash = $this->video->hashName(); // generator hash
@@ -45,20 +44,22 @@ class UploadVideo extends Component
 
         videoUploaded::dispatch($video);
 
-
-        toastr()->livewire()->title('Success!')->addSuccess('Video uploaded!');
+        $this->dispatchBrowserEvent('resetform');
         $this->emit('videosRefresh');
 
         switch ($this->type){
             case 0://original
                 $video->files = ['mp4' => $hash];
                 $video->save();
+                toastr()->livewire()->title('Success!')->addSuccess('Video uploaded!');
                 break;
             case 1: //x264
                 ConvertVideo::dispatch($video);
+                toastr()->livewire()->title('Success!')->addSuccess('Video uploaded, being processed now!');
                 break;
             case 2://streamable
                 ConvertVideoForStreaming::dispatch($video);
+                toastr()->livewire()->title('Success!')->addSuccess('Video uploaded, being processed now!');
                 break;
 
         }

@@ -33,13 +33,7 @@
                     </div>
                 </div>
             </div>
-            @if (session()->has('message'))
-                <script>document.getElementById('reset').click()</script>
-                <div class="alert alert-success alert-dismissible fade show mt-2" role="alert">
-                    <strong>{{ session('message') }}</strong><br>Depending on the length of the video, it can take up to 30 minutes to process
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
+
         </div>
 {{--    <div class="form-switch">--}}
 {{--        <input class="form-check-input" type="checkbox" wire:model="streamable" id="streamable">--}}
@@ -57,7 +51,7 @@
 
     <div x-show="isFinished">
 
-        <button wire:click.prevent="save" class="btn btn-outline-primary">Save!</button>
+        <button wire:click.prevent="store" class="btn btn-outline-primary">Save!</button>
         <button x-on:click.prevent="file = '', isFinished = 0" id="reset" class="btn btn-outline-danger">Reset</button>
     </div>
     </div>
@@ -66,5 +60,14 @@
         $(function () {
             $('[data-toggle="tooltip"]').tooltip()
         })
+    </script>
+    <script>
+
+        window.addEventListener('resetform', event => {
+
+            document.getElementById('reset').click()
+
+        })
+
     </script>
 </div>
