@@ -59,7 +59,10 @@
             "@php artisan key:generate --ansi"
         ],
         "changelog": "conventional-changelog",
-        "release": "conventional-changelog --commit",
+        "release": [
+            "conventional-changelog --commit",
+            "@php artisan version:absorb"
+        ],
         "release:patch": "conventional-changelog --patch --commit",
         "release:minor": "conventional-changelog --minor --commit",
         "release:major": "conventional-changelog --major --commit"
@@ -76,5 +79,5 @@
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
-    "version": "0.0.2-alpha.2"
+    "version": "0.0.3-alpha.2"
 }
