@@ -4,6 +4,14 @@
 All changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.0.4](https://github.com/ChrisToxz/FreeStream/compare/v0.0.3...v0.0.4) (2022-01-11)
+### Bug Fixes
+
+* Test ([edd915](https://github.com/ChrisToxz/FreeStream/commit/edd915d55472f80cb52f1bba4a645d6e52ac130e))
+
+
+---
+
 ## [0.0.3](https://github.com/ChrisToxz/FreeStream/compare/v0.0.2...v0.0.3) (2022-01-11)
 ### Bug Fixes
 
