@@ -8,6 +8,10 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [](https://github.com/ChrisToxz/FreeStream/compare/v...v) (2022-01-11)
+
+---
+
 ## [](https://github.com/ChrisToxz/FreeStream/compare/...v) (2022-01-11)
 
 ---
