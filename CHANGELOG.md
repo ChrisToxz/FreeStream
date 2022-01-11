@@ -1,8 +1,12 @@
 <!--- BEGIN HEADER -->
 # Changelog
 
-All notable changes to this project will be documented in this file.
+All changes to this project will be documented in this file.
 <!--- END HEADER -->
+
+## [](https://github.com/ChrisToxz/FreeStream/compare/v...v) (2022-01-11)
+
+---
 
 ## [](https://github.com/ChrisToxz/FreeStream/compare/v...v) (2022-01-11)
 
