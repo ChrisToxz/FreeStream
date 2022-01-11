@@ -4,6 +4,10 @@
 All changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [2.0.0-rc.1](https://github.com/ChrisToxz/FreeStream/compare/v1.0.0-rc.1...v2.0.0-rc.1) (2022-01-11)
+
+---
+
 ## [1.0.0-rc.1](https://github.com/ChrisToxz/FreeStream/compare/v1.0.0-beta.1...v1.0.0-rc.1) (2022-01-11)
 
 ---
