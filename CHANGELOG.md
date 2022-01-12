@@ -4,6 +4,19 @@
 All changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.1.0](https://github.com/ChrisToxz/FreeStream/compare/v0.0.6...v0.1.0) (2022-01-12)
+### Features
+
+* Video edit modal ([dd0a9c](https://github.com/ChrisToxz/FreeStream/commit/dd0a9c1e48e88188cbbae07b272b15653e1ec9e8))
+
+### Styles
+
+* Cleanup ([d0ff25](https://github.com/ChrisToxz/FreeStream/commit/d0ff25669d0e002aab39710db5199886e786bb96))
+* Index.blade.php cleanup ([ba297a](https://github.com/ChrisToxz/FreeStream/commit/ba297a8d4bf41b59dec2146a685fb40138a0a70d))
+
+
+---
+
 ## [0.0.6](https://github.com/ChrisToxz/FreeStream/compare/v0.0.5...v0.0.6) (2022-01-11)
 ### Bug Fixes
 
