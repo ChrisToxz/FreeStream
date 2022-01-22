@@ -10,6 +10,12 @@
 
                 <div class="card shadow-sm px-3">
                     <div class="card-body">
+                        @if(session('error'))
+                            <div class="alert alert-danger" role="alert">
+                                {{ session('error') }}
+                            </div>
+
+                        @endif
                         @if ($errors->any())
                             <div class="alert alert-danger" role="alert">
                                 <div class="text-danger">{{ __('Whoops! Something went wrong.') }}</div>
