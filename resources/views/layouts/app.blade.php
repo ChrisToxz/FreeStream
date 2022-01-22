@@ -18,6 +18,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @livewireStyles
 </head>
 <body>
     <nav class="navbar navbar-expand-md navbar-light bg-white border-bottom sticky-top">
@@ -74,6 +75,6 @@
     <main class="">
         @yield('content')
     </main>
-
+    @livewireScripts
 </body>
 </html>
