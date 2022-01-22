@@ -38,6 +38,11 @@
                             Dashboard
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('dashboard') }}">
+                            Settings
+                        </a>
+                    </li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->
@@ -66,7 +71,7 @@
         </div>
     </header>
 
-    <main class="py-4">
+    <main class="">
         @yield('content')
     </main>
 
