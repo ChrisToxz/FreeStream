@@ -14,6 +14,7 @@ class UploadVideo extends Component
 
     public function upload()
     {
+        dd($this);
         $this->validate([
             'video' => 'required|file|mimetypes:video/mp4,video/mpeg,video/x-matroska',
             'type' => 'required'

@@ -1,5 +1,5 @@
 <div
-    x-data="{file: '', isUploading: false, isFinished: false, uploadProgress: 0, retention: false, type: 1}"
+    x-data="{file: '', isUploading: false, isFinished: false, uploadProgress: 0, type: 1,   retention: false, retention_type: 1}"
     x-on:livewire-upload-start="isUploading = true"
     x-on:livewire-upload-finish="isUploading = false, isFinished = true"
     x-on:livewire-upload-error="isUploading = false"
@@ -33,7 +33,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="type" class="form-label float-start">Processing method</label>
-                                <select name="type" id="type" class="form-select" autocomplete="off" wire:model="type">
+                                <select name="type" id="type" class="form-select" autocomplete="off" x-model="type" wire:model="type">
                                     <option value="">Select option</option>
                                     <option value="1" selected="selected">None (Original file)</option>
                                     <option value="2">Optimized for web (x264)</option>
@@ -48,16 +48,15 @@
                                     </label>
                                 </div>
                                 <div x-show="retention">
-                                <input class="form-control" id="value" x-bind:type="type == 1 ? 'number' : 'date'" x-bind:placeholder="type == 1 ? 'Amount of views' : 'Date'" wire:model="retention_value">
+                                <input class="form-control" id="value" x-bind:type="retention_type == 1 ? 'number' : 'date'" x-bind:placeholder="retention_type == 1 ? 'Amount of views' : 'Date'" wire:model="retention_value">
                                 </div>
                             </div>
                             <div x-show="retention" class="col-6">
                                 <label class="form-check-label float-start" for="retention_type">
                                     Retention type
                                 </label>
-                                <select name="retention_type" id="retention_type" class="form-select" wire:model="retention_type">
-                                    <option value="">Select option</option>
-                                    <option value="1">Views</option>
+                                <select name="retention_type" id="retention_type" class="form-select" x-model="retention_type" wire:model="retention_type">
+                                    <option selected value="1">Views</option>
                                     <option value="2">Date</option>
                                 </select>
                             </div>
