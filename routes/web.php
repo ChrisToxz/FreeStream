@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Video;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,7 +15,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth')->get('/', function () {
-    return view('dashboard');
+    $videos = Video::all();
+    return view('dashboard')->with(['videos' => $videos]);
 })->name('dashboard');
 
 Auth::routes();

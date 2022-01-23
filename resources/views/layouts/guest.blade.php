@@ -19,7 +19,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body>
+<body style="background-image:url('{{asset('bg.png')}}')">
 <div id="app">
     <main class="py-4">
         @yield('content')

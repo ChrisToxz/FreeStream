@@ -5,12 +5,8 @@
 @section('content')
     <livewire:upload-video />
     <div class="container">
-        <div class="col-md-12">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <p>Logged in!</p>
-                </div>
-            </div>
-        </div>
+
+            <livewire:show-videos/>
+
     </div>
 @endsection

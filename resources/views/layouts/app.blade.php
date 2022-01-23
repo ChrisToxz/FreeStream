@@ -21,7 +21,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     @livewireStyles
 </head>
-<body>
+<body style="background-image:url('{{asset('bg.png')}}')">
     <nav class="navbar navbar-expand-md navbar-light bg-white border-bottom sticky-top">
         <div class="container">
             <!-- Logo -->
