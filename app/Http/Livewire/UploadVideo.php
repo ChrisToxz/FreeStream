@@ -2,9 +2,11 @@
 
 namespace App\Http\Livewire;
 
+use App\Enums\VideoType;
 use App\Models\Video;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use ProtoneMedia\LaravelFFMpeg\Support\FFMpeg;
 
 class UploadVideo extends Component
 {
@@ -14,20 +16,26 @@ class UploadVideo extends Component
 
     public function upload()
     {
-        dd($this);
         $this->validate([
-            'video' => 'required|file|mimetypes:video/mp4,video/mpeg,video/x-matroska',
-            'type' => 'required'
+            'video' => 'required|file|mimetypes:video/mp4,video/mpeg,video/x-matroska'
         ]);
 
         $title = $this->title ?? $this->video->getClientOriginalName();
         $hash = $this->video->hashName();
 
-        Video::create([
+        $type = $this->type ?? VideoType::Original();
+
+        $video = Video::create([
             'title'     => $title,
             'original'  => $hash,
-            'type'      => $this->type,
+            'type'      => $type,
         ]);
+
+        // Create Thumb
+        $media = FFMpeg::openUrl($this->video->path());
+        $media->getFrameFromSeconds(0.1)->export()->toDisk('videos')->save($video->tag.'/thumb.jpg');
+
+        $this->video->storeAs($video->tag, $hash, 'videos');
     }
 
 //    public function render()

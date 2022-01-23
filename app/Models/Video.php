@@ -15,6 +15,7 @@ class Video extends Model
     public static function create(array $attributes = [])
     {
         $attributes['tag'] = Str::random(4);
+
         $model = static::query()->create($attributes);
 
         return $model;
