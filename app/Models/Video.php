@@ -24,4 +24,10 @@ class Video extends Model
 
         return $model;
     }
+
+    public function getOriginalPathAttribute()
+    {
+        // TODO: Check why I cant use original as column name
+        return $this->tag.'/'.$this['original'];
+    }
 }

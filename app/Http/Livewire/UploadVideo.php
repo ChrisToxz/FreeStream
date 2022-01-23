@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Enums\VideoType;
+use App\Jobs\x264Optimization;
 use App\Models\Video;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -23,7 +24,7 @@ class UploadVideo extends Component
         $title = $this->title ?? $this->video->getClientOriginalName();
         $hash = $this->video->hashName();
 
-        $type = $this->type ?? VideoType::Original();
+        $type = $this->type ?? VideoType::Original()->value;
 
         $video = Video::create([
             'title'     => $title,
@@ -36,6 +37,20 @@ class UploadVideo extends Component
         $media->getFrameFromSeconds(0.1)->export()->toDisk('videos')->save($video->tag.'/thumb.jpg');
 
         $this->video->storeAs($video->tag, $hash, 'videos');
+
+        switch($type){
+            case 1: // original
+                // File already stored, just save stream hash.
+                $this->video->streamhash = $hash;
+                break;
+            case 2: // x264
+                x264Optimization::dispatch($video);
+                break;
+            case 3: // x264 + HLS
+                break;
+        }
+        smilify('success', 'Video uploaded!');
+        $this->emit('refreshVideos');
     }
 
 //    public function render()

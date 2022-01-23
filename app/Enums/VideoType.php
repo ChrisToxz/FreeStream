@@ -11,7 +11,7 @@ use BenSampo\Enum\Enum;
  */
 final class VideoType extends Enum
 {
-    const Original =   0;
-    const X264 =   1;
-    const Streamable = 2;
+    const Original =   1;
+    const X264 =   2;
+    const Streamable = 3;
 }
