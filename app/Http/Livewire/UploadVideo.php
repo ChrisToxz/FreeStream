@@ -10,24 +10,25 @@ class UploadVideo extends Component
 {
     use WithFileUploads;
 
-    public $video, $title;
+    public $video, $title, $type, $retention, $retention_type, $retention_value;
 
     public function upload()
     {
-
         $this->validate([
             'video' => 'required|file|mimetypes:video/mp4,video/mpeg,video/x-matroska',
-//            'type' => 'required'
+            'type' => 'required'
         ]);
 
         $title = $this->title ?? $this->video->getClientOriginalName();
         $hash = $this->video->hashName();
 
         Video::create([
-            'title' => $title,
-            'original' => $hash,
+            'title'     => $title,
+            'original'  => $hash,
+            'type'      => $this->type,
         ]);
     }
+
 //    public function render()
 //    {
 //        return view('livewire.upload-video');
