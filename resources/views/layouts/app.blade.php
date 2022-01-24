@@ -78,6 +78,7 @@
     <main class="">
         @yield('content')
     </main>
+    <livewire:modals/>
     @livewireScripts
     <script>
         $(document).ready(function(){

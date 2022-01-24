@@ -16,7 +16,7 @@
 {{--            </p>--}}
             <p class="card-text">
                 <button class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Tag: {{$video->tag}}">Copy link</button>
-                <button class="btn btn-sm btn-outline-secondary" >Edit</button>
+                <button class="btn btn-sm btn-outline-secondary" wire:click="$emit('showModal', 'edit-video', '{{ $video->tag }}')">Edit</button>
                 <button type="button" class="btn btn-sm btn-outline-danger" id="button" value="delete">Delete</button>
                 <small class="text-muted float-end">0 MB - 0 views</small>
             </p>
