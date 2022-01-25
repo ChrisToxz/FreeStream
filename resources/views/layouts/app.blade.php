@@ -35,6 +35,7 @@
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            @auth
                 <!-- Left Side Of Navbar -->
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
@@ -48,6 +49,7 @@
                         </a>
                     </li>
                 </ul>
+
 
                 <!-- Right Side Of Navbar -->
                 <ul class="navbar-nav">
@@ -66,6 +68,7 @@
                         </div>
                     </li>
                 </ul>
+                @endauth
             </div>
         </div>
     </nav>
