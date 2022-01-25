@@ -22,6 +22,12 @@ class EditVideo extends Component
         $this->video = $video;
     }
 
+    public function update()
+    {
+        $this->video->save();
+        $this->emit('refreshVideos');
+    }
+
 
     public function render()
     {
