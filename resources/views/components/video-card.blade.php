@@ -1,13 +1,13 @@
 
     <div class="card shadow-sm">
-        <a href="http://localhost/v/">
+        <a href="http://localhost/v/{{$video->tag}}">
             <img class="card-img-top" style="    width: 100%; height: 15vw; object-fit: cover;" src="{{ asset('/storage/videos/'.$video->tag.'/thumb.jpg') }}" alt="Thumbnail"></a>
         <div class="card-body">
             <h5 class="card-title">
-                <small data-bs-toggle="tooltip" data-bs-placement="top" title="x264 + HLS"><i class="bi-cast"></i></small> - {{ $video->title }}
+                {{ $video->title }} <small data-bs-toggle="tooltip" data-bs-placement="top" title="x264 + HLS"><i class="bi-cast"></i></small>
                 <small class="text-muted float-end">00:00</small>
             </h5>
-            <h6 class="card-subtitle mb-2 text-muted">5 Minutes ago</h6>
+            <h6 class="card-subtitle mb-2 text-muted">{{ \Carbon\Carbon::parse($video->created_at)->diffForHumans() }}</h6>
 
 {{--            <p class="text-center">--}}
 {{--            <div class="progress">--}}
