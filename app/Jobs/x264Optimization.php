@@ -46,7 +46,7 @@ class x264Optimization implements ShouldQueue
 
             })->toDisk('videos')->inFormat($highBitrateFormat)->save($this->video->tag.'/'.$streamhash.'.mp4');
 
-        $this->video->streamhash = $streamhash;
+        $this->video->streamhash = $streamhash.'.mp4';
         $this->video->save();
     }
 }
