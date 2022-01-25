@@ -56,7 +56,7 @@
             </form>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" @click="modal{{ $video->tag }} = false" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             <button type="button" wire:click.prevent="update()" data-dismiss="modal" class="btn btn-primary">Save changes</button>
         </div>
     </div>
