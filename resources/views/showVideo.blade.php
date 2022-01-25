@@ -15,9 +15,15 @@
             <div class="card shadow-sm">
                 <div class="card-body">
                     <video-js id=vid1 width=600 height=300 class="vjs-default-skin" controls>\
-                        <source
-                            src="{{ asset('/storage/videos/'.$video->tag.'/'.$video->original) }}"
-                            type="video/mp4">
+                        @if($video->type == 1)
+                            <source
+                                src="{{ asset('/storage/videos/'.$video->tag.'/'.$video->original) }}"
+                                type="video/mp4">
+                        @elseif($video->type == 2)
+                            <source
+                                src="{{ asset('/storage/videos/'.$video->tag.'/'.$video->streamhash) }}"
+                                type="video/mp4">
+                        @endif
 {{--                        <source--}}
 {{--                            src="{{ asset('/storage/videos/'.$video->tag.'/'.$video->original) }}"--}}
 {{--                            type="application/x-mpegURL">--}}
@@ -27,7 +33,7 @@
                         {{ $video->title }} <small data-bs-toggle="tooltip" data-bs-placement="top" title="x264 + HLS"><i class="bi-cast"></i></small>
                         <small class="text-muted float-end">00:00</small>
                     </h5>
-                    <h6 class="card-subtitle mb-2 text-muted">{{ \Carbon\Carbon::parse($video->created_at)->diffForHumans() }}</h6>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ \Carbon\Carbon::parse($video->created_at)->diffForHumans() }} <small class="text-muted float-end">0 MB - 0 views</small></h6></h6>
 
                     {{--            <p class="text-center">--}}
                     {{--            <div class="progress">--}}
@@ -35,10 +41,10 @@
                     {{--            </div>--}}
                     {{--            </p>--}}
                     <p class="card-text">
-                        <button class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Tag: {{$video->tag}}">Copy link</button>
-                        <button class="btn btn-sm btn-outline-secondary" wire:click="$emit('showModal', 'edit-video', '{{ $video->tag }}')">Edit</button>
-                        <button type="button" class="btn btn-sm btn-outline-danger" id="button" value="delete">Delete</button>
-                        <small class="text-muted float-end">0 views</small>
+                        <button class="btn btn-sm btn-outline-info bi-clipboard" data-bs-toggle="tooltip" data-bs-placement="top" title="Tag: {{$video->tag}}"> Copy link</button>
+                        <button class="btn btn-sm btn-outline-primary bi-cloud-download" data-bs-toggle="tooltip" data-bs-placement="top" title="Tag: {{$video->tag}}"> Download</button>
+                        <button class="btn btn-sm btn-outline-secondary bi-pencil-fill" wire:click="$emit('showModal', 'edit-video', '{{ $video->tag }}')"> Edit</button>
+                        <button type="button" class="btn btn-sm btn-outline-danger bi-trash-fill" id="button" value="delete"> Delete</button>
                     </p>
                 </div>
             </div>
