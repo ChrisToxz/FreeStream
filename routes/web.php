@@ -21,4 +21,5 @@ Route::middleware('auth')->get('/', function () {
 
 Auth::routes();
 
+Route::get('/v/{video}', [\App\Http\Controllers\VideoController::class, 'show']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
