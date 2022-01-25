@@ -33,7 +33,8 @@
                         {{ $video->title }} <small data-bs-toggle="tooltip" data-bs-placement="top" title="x264 + HLS"><i class="bi-cast"></i></small>
                         <small class="text-muted float-end">00:00</small>
                     </h5>
-                    <h6 class="card-subtitle mb-2 text-muted">{{ \Carbon\Carbon::parse($video->created_at)->diffForHumans() }} <small class="text-muted float-end">0 MB - 0 views</small></h6></h6>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ \Carbon\Carbon::parse($video->created_at)->diffForHumans() }} <small class="text-muted float-end">0 MB -
+                        {{ $video->views->count() }} views</small></h6></h6>
 
                     {{--            <p class="text-center">--}}
                     {{--            <div class="progress">--}}

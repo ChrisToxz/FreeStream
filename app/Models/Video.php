@@ -25,6 +25,16 @@ class Video extends Model
         return $model;
     }
 
+    public function views()
+    {
+        return $this->hasMany(View::class);
+    }
+
+    public function addView()
+    {
+        return $this->views()->create();
+    }
+
     public function getOriginalPathAttribute()
     {
         // TODO: Check why I cant use original as column name
