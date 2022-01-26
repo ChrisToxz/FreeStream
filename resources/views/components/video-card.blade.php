@@ -1,5 +1,5 @@
 
-    <div class="card shadow-sm">
+    <div class="card shadow-lg">
         <a href="http://localhost/v/{{$video->tag}}">
             <img class="card-img-top" style="    width: 100%; height: 15vw; object-fit: cover;" src="{{ asset('/storage/videos/'.$video->tag.'/thumb.jpg') }}" alt="Thumbnail"></a>
         <div class="card-body">

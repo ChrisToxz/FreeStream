@@ -8,7 +8,7 @@
                     <img src="{{ asset('logo.svg') }}">
                 </div>
 
-                <div class="card shadow-sm px-3">
+                <div class="card shadow-lg px-3">
                     <div class="card-body">
                         @if(session('error'))
                             <div class="alert alert-danger" role="alert">
