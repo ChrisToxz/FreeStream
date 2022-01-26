@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Video;
+use App\SlipstreamSettings;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -24,7 +25,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $videos = Video::all();
-        return view('home')->with(['videos' => $videos]);
+        $videos = Video::latest()->get();
+        return view('dashboard')->with(['videos' => $videos]);
+    }
+
+    public function settings(SlipstreamSettings $settings)
+    {
+        return view('settings');
     }
 }

@@ -16,7 +16,8 @@
         "laravel/ui": "^3.4",
         "livewire/livewire": "^2.10",
         "mckenziearts/laravel-notify": "^2.2",
-        "pbmedia/laravel-ffmpeg": "^7.7"
+        "pbmedia/laravel-ffmpeg": "^7.7",
+        "spatie/laravel-settings": "^2.3"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.12",

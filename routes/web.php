@@ -14,12 +14,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth')->get('/', function () {
-    $videos = Video::all();
-    return view('dashboard')->with(['videos' => $videos]);
-})->name('dashboard');
+// TODO: Rewrite routes
+//
+//Route::middleware('auth')->get('/', function () {
+//    $videos = Video::all();
+//    return view('dashboard')->with(['videos' => $videos]);
+//})->name('dashboard');
 
 Auth::routes();
 
-Route::get('/v/{video}', [\App\Http\Controllers\VideoController::class, 'show']);
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
+Route::get('/v/{video}', [\App\Http\Controllers\VideoController::class, 'show']); // show video page
+Route::get('/settings', [\App\Http\Controllers\HomeController::class, 'settings'])->name('settings'); // settingsg page
+
+
