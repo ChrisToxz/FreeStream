@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\RetentionType;
 use App\Models\Video;
+use App\SlipstreamSettings;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -11,7 +12,7 @@ class VideoController extends Controller
 {
     //
 
-    public function show(Video $video)
+    public function show(Video $video, SlipstreamSettings $settings)
     {
         //TODO: Move to middleware
         $video->addView();
@@ -31,6 +32,6 @@ class VideoController extends Controller
             }
         }
         // show video
-        return view('showVideo')->with(['video' => $video]);
+        return view('showVideo')->with(['video' => $video, 'settings' => $settings]);
     }
 }

@@ -21,20 +21,27 @@ class UploadVideo extends Component
         $vali = $this->validate([
             'video' => 'required|file|mimetypes:video/mp4,video/mpeg,video/x-matroska',
         ]);
+        // filesize dd($this->video);
 
         $title = $this->title ?? $this->video->getClientOriginalName();
         $hash = $this->video->hashName();
 
         $type = $this->type ?? VideoType::Original()->value;
 
+        $media = FFMpeg::openUrl($this->video->path());
+
         $video = Video::create([
             'title'     => $title,
             'original'  => $hash,
             'type'      => $type,
+            'info'      => [
+                'duration'=>$media->getDurationInSeconds(),
+                'size' => round($this->video->getSize()/1000000), // to MB
+                'extension' => $this->video->extension(),
+            ]
         ]);
 
         // Create Thumb
-        $media = FFMpeg::openUrl($this->video->path());
         $media->getFrameFromSeconds(0.1)->export()->toDisk('videos')->save($video->tag.'/thumb.jpg');
 
         $this->video->storeAs($video->tag, $hash, 'videos');

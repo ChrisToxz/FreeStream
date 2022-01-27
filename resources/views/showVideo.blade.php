@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.video')
 
-@section('title', 'Show video')
+@section('title', $video->title)
 
 @section('content')
     <link href="https://vjs.zencdn.net/7.17.0/video-js.css" rel="stylesheet" />
@@ -30,12 +30,20 @@
                     </video-js>
 
                     <h5 class="card-title mt-3">
-                        {{ $video->title }} <small data-bs-toggle="tooltip" data-bs-placement="top" title="x264 + HLS"><i class="bi-cast"></i></small>
-                        <small class="text-muted float-end">00:00</small>
+                        @if($settings->guests_can_see_video_info)
+                            {{ $video->title }}
+                        <small data-bs-toggle="tooltip" data-bs-placement="top" title="x264 + HLS"><i class="bi-cast"></i></small>
+                        <small class="text-muted float-end">
+                            @if($video->info->duration > 3600)
+                                {{ gmdate("H:i:s", $video->info->duration) }}
+                            @else
+                                {{ gmdate("i:s", $video->info->duration) }}
+                            @endif
+                        </small>
                     </h5>
-                    <h6 class="card-subtitle mb-2 text-muted">{{ \Carbon\Carbon::parse($video->created_at)->diffForHumans() }} <small class="text-muted float-end">0 MB -
+                    <h6 class="card-subtitle mb-2 text-muted">{{ \Carbon\Carbon::parse($video->created_at)->diffForHumans() }} <small class="text-muted float-end">{{ $video->info->size }} MB -
                         {{ $video->views->count() }} views</small></h6></h6>
-
+@endif
                     {{--            <p class="text-center">--}}
                     {{--            <div class="progress">--}}
                     {{--                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 50%"><span class="justify-content-center d-flex position-absolute w-100 text-dark">Processing video - 100%</span></div>--}}

@@ -12,9 +12,15 @@
                 @elseif($video->type == 3)
                     <small data-bs-toggle="tooltip" data-bs-placement="top" title="x264 + HLS"><i class="bi-cast"></i></small>
                 @endif
-                <small class="text-muted float-end">00:00</small>
+                <small class="text-muted float-end">
+                    @if($video->info->duration > 3600)
+                        {{ gmdate("H:i:s", $video->info->duration) }}
+                    @else
+                        {{ gmdate("i:s", $video->info->duration) }}
+                    @endif
+                </small>
             </h5>
-            <h6 class="card-subtitle mb-2 text-muted">{{ \Carbon\Carbon::parse($video->created_at)->diffForHumans() }} <small class="text-muted float-end">0 MB - {{$video->views->count()}} views</small></h6>
+            <h6 class="card-subtitle mb-2 text-muted">{{ \Carbon\Carbon::parse($video->created_at)->diffForHumans() }} <small class="text-muted float-end">{{ $video->info->size }} MB - {{$video->views->count()}} views</small></h6>
 
 {{--            <p class="text-center">--}}
 {{--            <div class="progress">--}}
