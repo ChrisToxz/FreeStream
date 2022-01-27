@@ -48,6 +48,7 @@ class UploadVideo extends Component
                 x264Optimization::dispatch($video);
                 break;
             case 3: // x264 + HLS
+                x264Optimization::dispatch($video, 1);
                 break;
         }
 

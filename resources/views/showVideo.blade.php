@@ -24,9 +24,9 @@
                                 src="{{ asset('/storage/videos/'.$video->tag.'/'.$video->streamhash) }}"
                                 type="video/mp4">
                         @endif
-{{--                        <source--}}
-{{--                            src="{{ asset('/storage/videos/'.$video->tag.'/'.$video->original) }}"--}}
-{{--                            type="application/x-mpegURL">--}}
+                        <source
+                            src="{{ asset('/storage/videos/'.$video->tag.'/'.$video->streamhash) }}"
+                            type="application/x-mpegURL">
                     </video-js>
 
                     <h5 class="card-title mt-3">
