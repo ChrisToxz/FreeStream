@@ -9,4 +9,11 @@
             <livewire:show-videos/>
 
     </div>
+    <script>
+        function copy(text) {
+            // TODO: proper copied feedback.
+            navigator.clipboard.writeText(text);
+            alert("Copied!");
+        }
+    </script>
 @endsection

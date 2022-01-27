@@ -1,4 +1,4 @@
-
+{{-- TODO: a href links--}}
     <div class="card shadow-lg">
         <a href="http://localhost/v/{{$video->tag}}">
             <img class="card-img-top" style="    width: 100%; height: 15vw; object-fit: cover;" src="{{ asset('/storage/videos/'.$video->tag.'/thumb.jpg') }}" alt="Thumbnail"></a>
@@ -22,7 +22,7 @@
 {{--            </div>--}}
 {{--            </p>--}}
             <p class="card-text">
-                <button class="btn btn-sm btn-outline-info bi-clipboard" data-bs-toggle="tooltip" data-bs-placement="top" title="Tag: {{$video->tag}}"> Copy link</button>
+                <button class="btn btn-sm btn-outline-info bi-clipboard" onclick="copy('http://localhost/v/{{$video->tag}}')" data-bs-toggle="tooltip" data-bs-placement="top" title="Tag: {{$video->tag}}"> Copy link</button>
                 <button class="btn btn-sm btn-outline-primary bi-cloud-download" data-bs-toggle="tooltip" data-bs-placement="top" title="Tag: {{$video->tag}}"> Download</button>
                 <button class="btn btn-sm btn-outline-secondary bi-pencil-fill" wire:click="$emit('showModal', 'edit-video', '{{ $video->tag }}')"> Edit</button>
                 <button type="button" class="btn btn-sm btn-outline-danger bi-trash-fill" id="button" value="delete"> Delete</button>
