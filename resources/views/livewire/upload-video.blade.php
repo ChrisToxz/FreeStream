@@ -21,6 +21,7 @@
                     </p>
                 </div>
             </div>
+
         <div x-show="file" class="container py-4">
 
             <div class="col-md-12">
@@ -48,7 +49,7 @@
                                     </label>
                                 </div>
                                 <div x-show="retention">
-                                <input class="form-control" id="value" x-bind:type="retention_type == 1 ? 'number' : 'date'" x-bind:placeholder="retention_type == 1 ? 'Amount of views' : 'Date'" wire:model="retention_value">
+                                <input class="form-control" id="value" x-bind:type="retention_type == 1 ? 'number' : 'datetime-local'" x-bind:placeholder="retention_type == 1 ? 'Amount of views' : 'Date'" wire:model="retention_value">
                                 </div>
                             </div>
                             <div x-show="retention" class="col-6">

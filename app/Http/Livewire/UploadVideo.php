@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Enums\RetentionType;
 use App\Enums\VideoType;
 use App\Jobs\x264Optimization;
 use App\Models\Video;
@@ -17,8 +18,8 @@ class UploadVideo extends Component
 
     public function upload()
     {
-        $this->validate([
-            'video' => 'required|file|mimetypes:video/mp4,video/mpeg,video/x-matroska'
+        $vali = $this->validate([
+            'video' => 'required|file|mimetypes:video/mp4,video/mpeg,video/x-matroska',
         ]);
 
         $title = $this->title ?? $this->video->getClientOriginalName();
@@ -49,6 +50,14 @@ class UploadVideo extends Component
             case 3: // x264 + HLS
                 break;
         }
+
+        if($this->retention){
+            if(!$this->retention_type || !$this->retention_value){
+                dd('No values');
+            }
+            $video->retention()->create(['type'=>$this->retention_type, 'value'=>$this->retention_value]);
+        }
+
         smilify('success', 'Video uploaded!');
         $this->emit('refreshVideos');
     }
