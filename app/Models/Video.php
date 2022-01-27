@@ -30,6 +30,11 @@ class Video extends Model
         return $this->hasMany(View::class);
     }
 
+    public function retention()
+    {
+        return $this->hasOne(Retention::class);
+    }
+
     public function addView()
     {
         return $this->views()->create();
