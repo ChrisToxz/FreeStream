@@ -9,15 +9,17 @@
 
 ## What is Slipstream?
 Slipstream is an opensource selfhosted video streaming platform which offers (yes, what offers it exactly?).\
-The current public available code is in very early stage of what Slipstream is meant to be.\
-Because of this we consider Slipstream as unreleased.\
+The current public available code is in very early stage of what Slipstream is meant to be. Because of this we consider this as a pre-alpha release.\
 \
-The first list below will show the current finished features, they would be ready for an alpha release.
-The second list shows the features that will be finished before we will release the first official version.
+Below list will show the current finished features. There are currently many features scheduled before a official first release, you can check them [here](https://trello.com/b/duVOc3vL/slipstream)!
 
-list 1...
+### Finished features
 
-list 2...
+- Upload videos and share with an unique link
+- x264 conversion for web optimization
+- x264 + HLS conversion for streaming capabilities
+- Retention policy to delete videos automatically based on amount of views or a specific date/time
+- Access policy to protect videos with a password
 
 ## Requirements
 PHP\
