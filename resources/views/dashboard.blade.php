@@ -14,7 +14,7 @@
             <p class="float-end mb-1">
                 <a href="#">Back to top</a>
             </p>
-            <p class="mb-1">Powered by <a href="">Slipstream</a></p>
+            <p class="mb-1">Powered by <a href="">Slipstream</a> @version</p>
             <p class="mb-0"></p>
         </div>
     </footer>
