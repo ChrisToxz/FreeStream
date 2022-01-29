@@ -23,5 +23,6 @@
     "dependencies": {
         "bootstrap-icons": "^1.7.2",
         "jquery": "^3.6.0"
-    }
+    },
+    "version": ""
 }

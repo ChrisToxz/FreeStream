@@ -1,0 +1,15 @@
+<!--- BEGIN HEADER -->
+# Changelog
+
+All notable changes to this project will be documented in this file.
+<!--- END HEADER -->
+
+## [](https://github.com/ChrisToxz/FreeStream/compare/...v) (2022-01-29)
+
+---
+
+## [1.0.0](https://github.com/ChrisToxz/FreeStream/compare/9b033807ffe87c22aafe00d556592a12f0d75301
+96eb676bd1480e9d80af786e187301f374f210c8...v1.0.0) (2022-01-29)
+
+---
+
