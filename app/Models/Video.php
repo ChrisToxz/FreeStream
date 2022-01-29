@@ -44,6 +44,14 @@ class Video extends Model
         return $this->views()->create();
     }
 
+    public function getReadableSizeAttribute()
+    {
+            $bytes = $this->info->size * 100000;
+            $i = floor(log($bytes, 1024));
+            return round($bytes / pow(1024, $i), [0,0,2,2,3][$i]).['B','kB','MB','GB','TB'][$i];
+
+    }
+
     public function getOriginalPathAttribute()
     {
         // TODO: Check why I cant use original as column name
