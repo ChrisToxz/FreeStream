@@ -31,6 +31,6 @@ class EditVideo extends Component
 
     public function render()
     {
-        return view('livewire.edit-video');
+        return view('livewire.edit-video')->with(['info' => json_encode($this->video->info)]);
     }
 }

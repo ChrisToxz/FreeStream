@@ -45,6 +45,12 @@
                     <label for="tag">Stream hash</label>
                     <input type="text" disabled class="form-control" id="streamhash" value="{{ $video->streamhash }}" >
                 </div>
+                <div class="form-group">
+                    <label for="tag">Video info</label>
+                    <textarea class="form-control">
+                        {{ $info }}
+                    </textarea>
+                </div>
 
                 <div class="form-group">
                     <label for="tag">Created at</label>

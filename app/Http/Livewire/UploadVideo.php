@@ -28,6 +28,7 @@ class UploadVideo extends Component
 
         $type = $this->type ?? VideoType::Original()->value;
 
+
         $media = FFMpeg::openUrl($this->video->path());
 
         $video = Video::create([
@@ -38,6 +39,13 @@ class UploadVideo extends Component
                 'duration'=>$media->getDurationInSeconds(),
                 'size' => round($this->video->getSize()/1000000), // to MB
                 'extension' => $this->video->extension(),
+                'codec_name' => $media->getVideoStream()->get('codec_name'),
+                'codec_long_name' => $media->getVideoStream()->get('codec_long_name'),
+                'width' => $media->getVideoStream()->get('width'),
+                'height' => $media->getVideoStream()->get('height'),
+                'r_frame_rate' => $media->getVideoStream()->get('r_frame_rate'),
+                'avg_frame_rate' => $media->getVideoStream()->get('avg_frame_rate'),
+                'tags' => $media->getVideoStream()->get('tags'),
             ]
         ]);
 
