@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Imtigger\LaravelJobStatus\JobStatus;
 
 class Video extends Model
 {
@@ -37,6 +38,10 @@ class Video extends Model
     public function retention()
     {
         return $this->hasOne(Retention::class);
+    }
+
+    public function job(){
+        return $this->hasOne(JobStatus::class);
     }
 
     public function addView()

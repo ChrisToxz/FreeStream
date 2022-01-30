@@ -12,11 +12,12 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Str;
+use Imtigger\LaravelJobStatus\Trackable;
 use ProtoneMedia\LaravelFFMpeg\Support\FFMpeg;
 
 class x264Optimization implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, Trackable;
 
     public $video, $HLS, $settings;
 
@@ -29,6 +30,8 @@ class x264Optimization implements ShouldQueue
     {
         $this->video = $video;
         $this->HLS = $HLS;
+
+        $this->prepareStatus(['video_tag' => $video->tag]);
     }
 
     /**
@@ -38,7 +41,11 @@ class x264Optimization implements ShouldQueue
      */
     public function handle(SlipstreamSettings $settings)
     {
+        // trackable job
+        $this->setProgressMax(100);
+
         $this->settings = $settings->toCollection();
+
         // TODO: Qualities
         $qualities = [
             360 => [640, 360, $this->settings['streaming_bitrates'][360]],
@@ -60,7 +67,7 @@ class x264Optimization implements ShouldQueue
         if(!$this->HLS){
             FFMpeg::fromDisk('videos')->open($this->video->OriginalPath)
                 ->export()->onProgress(function ($percentage) {
-
+                    $this->setProgressNow($percentage);
                 })->toDisk('videos')->inFormat($originalBitrateFormat)->save($this->video->tag.'/'.$streamhash.'.mp4');
 
             $this->video->streamhash = $streamhash.'.mp4';
@@ -71,7 +78,10 @@ class x264Optimization implements ShouldQueue
                 ->open($this->video->OriginalPath)
                 ->exportForHLS()
                 ->setSegmentLength(10) // optional
-                ->setKeyFrameInterval(48); // optional
+                ->setKeyFrameInterval(48) // optional
+                ->onProgress(function ($percentage) {
+                $this->setProgressNow($percentage);
+            });
 
             foreach($qualities as $quality){
                 if($this->video->info->height >= $quality[1]){
