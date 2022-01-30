@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\VideoType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -47,6 +48,21 @@ class Video extends Model
     public function addView()
     {
         return $this->views()->create();
+    }
+
+    public function getProgressNowAttribute()
+    {
+        return $this->job->progress_now ?? 0;
+    }
+
+    public function getIsFinishedAttribute(){
+        if(!empty($this->job->is_finished)){
+            return $this->job->is_finished;
+        }
+        if($this->type == VideoType::Original()){
+            return 1;
+        }
+        return 0;
     }
 
     public function getReadableSizeAttribute()

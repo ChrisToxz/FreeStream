@@ -23,7 +23,7 @@
             <h6 class="card-subtitle mb-2 text-muted">{{ \Carbon\Carbon::parse($video->created_at)->diffForHumans() }} <small class="text-muted float-end">{{ $video->ReadableSize }} - {{$video->views->count()}} views</small></h6>
 
 
-            @if(!$video->job->is_finished)
+            @if(!$video->isFinished)
                 <livewire:show-video-progress :video="$video">
             @else
                 <p class="card-text">
