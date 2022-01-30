@@ -1,4 +1,4 @@
-<div x-data="{retention: 0, type: 0}" class="modal-dialog">
+<div x-data="{retention: {{ $retention }}, type: 0}" class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title">Edit video: {{ $video->title }}({{$video->tag}})</h5>
@@ -19,13 +19,14 @@
                     <input type="text" disabled class="form-control" id="slug" value="Coming soon">
                 </div>
                 <div class="form-group">
-                    <label for="tag">Retention policy  <input class="form-check-input" x-model="retention" type="checkbox">
+                    <label for="tag">Retention policy
+                        <input class="form-check-input" id="retention" x-model="retention" wire:model="retention" type="checkbox">
                         <label class="form-check-label" for="gridCheck">
                             Enable
                         </label></label>
                     <div x-show="retention == 1" class="input-group">
-                        <input x-show="type == 0" type="text" class="form-control input-sm"/>
-                        <input x-show="type == 1" type="date" class="form-control input-sm"/>
+                        <input x-show="type == 0" type="text" wire:model="retention_value" class="form-control input-sm"/>
+                        <input x-show="type == 1" type="date" wire:model="retention_value" class="form-control input-sm"/>
                         <span class="input-group-btn" style="width:0px;"></span>
                         <select @change="type = $event.target.value" class="form-control">
                             <option value="0">Views</option>
@@ -63,7 +64,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" wire:click.prevent="update()" data-dismiss="modal" class="btn btn-primary">Save changes</button>
+            <button type="button" wire:click.prevent="update('{{$video->tag}}')" data-dismiss="modal" class="btn btn-primary">Save changes</button>
         </div>
     </div>
 </div>
