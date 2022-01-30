@@ -46,7 +46,7 @@ class Video extends Model
 
     public function getReadableSizeAttribute()
     {
-            $bytes = $this->info->size * 100000;
+            $bytes = $this->info->size * 1000000;
             $i = floor(log($bytes, 1024));
             return round($bytes / pow(1024, $i), [0,0,2,2,3][$i]).['B','kB','MB','GB','TB'][$i];
 
