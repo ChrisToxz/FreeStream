@@ -41,6 +41,7 @@ class UploadVideo extends Component
                 'extension' => $this->video->extension(),
                 'codec_name' => $media->getVideoStream()->get('codec_name'),
                 'codec_long_name' => $media->getVideoStream()->get('codec_long_name'),
+                'bit_rate' => $media->getVideoStream()->get('bit_rate'),
                 'width' => $media->getVideoStream()->get('width'),
                 'height' => $media->getVideoStream()->get('height'),
                 'r_frame_rate' => $media->getVideoStream()->get('r_frame_rate'),
