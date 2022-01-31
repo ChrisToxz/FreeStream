@@ -46,7 +46,8 @@ class EditVideo extends Component
             }
 
         }
-        $video->save();
+
+        $video->updateOrFail(['title'=>$this->video->title]);
         $this->emit('refreshVideos');
     }
 
