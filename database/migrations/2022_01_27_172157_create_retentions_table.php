@@ -15,7 +15,7 @@ class CreateRetentionsTable extends Migration
     {
         Schema::create('retentions', function (Blueprint $table) {
             $table->id();
-            $table->string('video_tag')->references('tag')->on('videos');
+            $table->string('video_id')->references('id')->on('videos');
             $table->enum('type', \App\Enums\RetentionType::getValues())->default(\App\Enums\RetentionType::Views());
             $table->string("value");
             $table->timestamps();

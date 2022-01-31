@@ -16,7 +16,7 @@ class CreateViewsTable extends Migration
         Schema::create('views', function (Blueprint $table) {
             $table->id();
 
-            $table->string('video_tag')->references('tag')->on('videos');
+            $table->string('video_id')->references('id')->on('videos');
             $table->timestamps();
         });
     }

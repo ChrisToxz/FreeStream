@@ -14,7 +14,8 @@ class CreateVideosTable extends Migration
     public function up()
     {
         Schema::create('videos', function (Blueprint $table) {
-            $table->string('tag')->primary();
+            $table->id();
+            $table->string('tag');
             $table->string('title');
             $table->string('original'); // original video hash filename
             $table->string('streamhash')->nullable(); // filename/path of mp4/m3u8
