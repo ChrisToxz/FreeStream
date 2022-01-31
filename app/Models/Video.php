@@ -13,10 +13,7 @@ class Video extends Model
     use HasFactory;
 
     protected $guarded = [];
-    protected $primaryKey = 'tag';
-    public $incrementing = false;
-    // In Laravel 6.0+ make sure to also set $keyType
-    protected $keyType = 'string';
+
 
     protected $casts = [
         'info' => 'object'
@@ -77,5 +74,9 @@ class Video extends Model
     {
         // TODO: Check why I cant use original as column name
         return $this->tag.'/'.$this['original'];
+    }
+
+    public static function findByTag($tag){
+        return self::where('tag', $tag)->firstOrFail();
     }
 }

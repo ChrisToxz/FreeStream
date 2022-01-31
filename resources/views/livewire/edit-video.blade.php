@@ -64,7 +64,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" wire:click.prevent="update('{{$video->tag}}')" data-dismiss="modal" class="btn btn-primary">Save changes</button>
+            <button type="button" wire:click.prevent="update({{$video->id}})" data-dismiss="modal" class="btn btn-primary">Save changes</button>
         </div>
     </div>
 </div>
