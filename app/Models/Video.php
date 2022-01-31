@@ -75,4 +75,8 @@ class Video extends Model
         // TODO: Check why I cant use original as column name
         return $this->tag.'/'.$this['original'];
     }
+
+    public static function findByTag($tag){
+        return self::where('tag', $tag)->firstOrFail();
+    }
 }

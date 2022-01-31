@@ -12,8 +12,9 @@ class VideoController extends Controller
 {
     //
 
-    public function show(Video $video, SlipstreamSettings $settings)
+    public function show($tag, SlipstreamSettings $settings)
     {
+        $video = Video::findByTag($tag);
         //TODO: Move to middleware
         $video->addView();
 
