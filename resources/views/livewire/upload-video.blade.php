@@ -21,8 +21,7 @@
                     </p>
                 </div>
             </div>
-
-        <div x-show="file" class="container py-4">
+        <div x-show="file" class="container py-4" x-cloak>
 
             <div class="col-md-12">
                 <div class="card shadow-sm">

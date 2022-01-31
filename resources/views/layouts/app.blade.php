@@ -22,6 +22,12 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     @livewireStyles
+    <style>
+{{--        Move to css file                --}}
+        [x-cloak] {
+            display: none !important;
+        }
+    </style>
 </head>
 <body style="background-image:url('{{asset('bg.png')}}')">
     <nav class="navbar navbar-expand-md navbar-light bg-white border-bottom sticky-top">
