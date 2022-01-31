@@ -21,9 +21,16 @@ Slipstream is an open source self hosted video streaming platform which offers v
 
 ### Confirmed upcoming features
 
-- ✂ Trim video
-- 📃 Share multiple videos with a playlist
+- ✂ Crop, trim & rotate video
+- 📸 Custom thumbnail timestamp
+- 🖼 Inline video preview & VTT thumbnails
+- ™ Automatically picture/text watermark
+- 🔓 Public videos (public dashboard with selected videos)
+- 📃 Public & private playlists
+- 🌐 Embed videos
+- 👍 Optional video comments & likes
 - 🐌 Custom links
+- 🔐 One single-session share link
 - 👥 Multiple users
 
 ## Requirements
