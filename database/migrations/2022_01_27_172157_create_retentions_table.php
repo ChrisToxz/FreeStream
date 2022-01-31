@@ -15,7 +15,7 @@ class CreateRetentionsTable extends Migration
     {
         Schema::create('retentions', function (Blueprint $table) {
             $table->id();
-            $table->string('video_id')->references('id')->on('videos');
+            $table->foreignId('video_id')->constrained('videos')->onDelete('cascade');
             $table->enum('type', \App\Enums\RetentionType::getValues())->default(\App\Enums\RetentionType::Views());
             $table->string("value");
             $table->timestamps();
