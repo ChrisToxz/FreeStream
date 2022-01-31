@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
-Route::get('/v/{video}', [\App\Http\Controllers\VideoController::class, 'show']); // show video page
+Route::get('/v/{tag}', [\App\Http\Controllers\VideoController::class, 'show']); // show video page
 Route::get('/settings', [\App\Http\Controllers\HomeController::class, 'settings'])->name('settings'); // settingsg page
 
 
