@@ -21,10 +21,19 @@ use Illuminate\Support\Facades\Route;
 //    return view('dashboard')->with(['videos' => $videos]);
 //})->name('dashboard');
 
+Route::get('/test', function(){
+
+//    \Session::push('videos', 'test');
+        dd(\Session::get('videos', []));
+//\Session::forget('videos');
+});
+
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
-Route::get('/v/{tag}', [\App\Http\Controllers\VideoController::class, 'show']); // show video page
+Route::get('/v/{tag}', [\App\Http\Controllers\VideoController::class, 'show'])->middleware('videogate')->name('showvideo'); // show video page
+Route::get('/gate', [\App\Http\Controllers\VideoController::class, 'gate'])->name('gate');
+Route::post('/gate', [\App\Http\Controllers\VideoController::class, 'gate'])->name('gate');
 Route::get('/settings', [\App\Http\Controllers\HomeController::class, 'settings'])->name('settings'); // settingsg page
 
 

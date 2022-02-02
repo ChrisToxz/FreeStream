@@ -35,4 +35,26 @@ class VideoController extends Controller
         // show video
         return view('showVideo')->with(['video' => $video, 'settings' => $settings]);
     }
+
+    public function gate(Request $request)
+    {
+
+        if ($request->isMethod('post')){
+            if(\Session::has('current-video')){
+                $video_password = Video::findByTag(\Session::get('current-video'))->first()->password;
+
+                if(\Hash::check($request->get('password'), $video_password)){
+
+                    \Session::push('videos', \Session::get('current-video'));
+                    return redirect('/v/'.\Session::get('current-video'));
+                }
+            }
+        }
+
+        return view('videoGate');
+    }
+
+    public function gate_check(Request $request){
+        dd('gfatech');
+    }
 }
