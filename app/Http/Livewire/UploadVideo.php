@@ -76,6 +76,7 @@ class UploadVideo extends Component
         }
 
         smilify('success', 'Video uploaded!');
+        $this->dispatchBrowserEvent('resetform');
         $this->emit('refreshVideos');
     }
 
