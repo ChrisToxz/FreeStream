@@ -1,5 +1,5 @@
 <div
-    x-data="{file: '', isUploading: false, isFinished: false, uploadProgress: 0, type: 1,   retention: false, retention_type: 1}"
+    x-data="{file: '', isUploading: false, isFinished: false, uploadProgress: 0, type: 1,   retention: false, retention_type: 1, password: false}"
     x-on:livewire-upload-start="isUploading = true"
     x-on:livewire-upload-finish="isUploading = false, isFinished = true"
     x-on:livewire-upload-error="isUploading = false"
@@ -48,10 +48,10 @@
                                     </label>
                                 </div>
                                 <div x-show="retention">
-                                <input class="form-control" id="value" x-bind:type="retention_type == 1 ? 'number' : 'datetime-local'" x-bind:placeholder="retention_type == 1 ? 'Amount of views' : 'Date'" wire:model="retention_value">
+                                    <input class="form-control" id="value" x-bind:type="retention_type == 1 ? 'number' : 'datetime-local'" x-bind:placeholder="retention_type == 1 ? 'Amount of views' : 'Date'" wire:model="retention_value">
                                 </div>
                             </div>
-                            <div x-show="retention" class="col-6">
+                            <div class="col-6" x-show="retention" >
                                 <label class="form-check-label float-start" for="retention_type">
                                     Retention type
                                 </label>
@@ -61,6 +61,20 @@
                                 </select>
                             </div>
 
+                            <div class="col-6">
+                                <div class="col-4">
+                                    <input class="form-check-input" type="checkbox" id="password" value="1" x-model="password" wire:model="password">
+                                    <label class="form-check-label float-start" for="password">
+                                        Enable password
+                                    </label>
+                                </div>
+                                <div x-show="password">
+                                    <input class="form-control" id="value" type="password" wire:model="password_value">
+                                </div>
+                            </div>
+                            <div class="col-6" x-show="password" >
+
+                            </div>
 
                             <div x-show="isUploading">
                                 Uploading...<br \>
