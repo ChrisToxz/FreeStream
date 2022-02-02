@@ -21,6 +21,7 @@ class CreateVideosTable extends Migration
             $table->string('streamhash')->nullable(); // filename/path of mp4/m3u8
             $table->enum('type', \App\Enums\VideoType::getValues())->default(\App\Enums\VideoType::Original());
             $table->json('info')->nullable();
+            $table->string('password')->nullable();
             $table->timestamps();
         });
     }
