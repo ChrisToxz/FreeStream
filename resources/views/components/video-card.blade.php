@@ -30,7 +30,7 @@
                     <button class="btn btn-sm btn-outline-info bi-clipboard" onclick="copy('http://localhost/v/{{$video->tag}}')" data-bs-toggle="tooltip" data-bs-placement="top" title="Tag: {{$video->tag}}"> Copy link</button>
                     <button class="btn btn-sm btn-outline-primary bi-cloud-download" data-bs-toggle="tooltip" data-bs-placement="top" title="Tag: {{$video->tag}}"> Download</button>
                     <button class="btn btn-sm btn-outline-secondary bi-pencil-fill" wire:click="$emit('showModal', 'edit-video', {{ $video->id }})"> Edit</button>
-                    <button type="button" class="btn btn-sm btn-outline-danger bi-trash-fill" id="button" value="delete"> Delete</button>
+                    <button type="button" class="btn btn-sm btn-outline-danger bi-trash-fill" wire:click.prevent="delete({{$video->id}})" id="button" value="delete"> Delete</button>
                 </p>
             @endif
         </div>
