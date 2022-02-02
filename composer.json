@@ -21,6 +21,7 @@
         "livewire/livewire": "^2.10",
         "mckenziearts/laravel-notify": "^2.2",
         "pbmedia/laravel-ffmpeg": "^7.7",
+        "php-flasher/flasher-livewire": "^0.9.6",
         "pragmarx/version": "^1.3",
         "spatie/laravel-settings": "^2.3"
     },
