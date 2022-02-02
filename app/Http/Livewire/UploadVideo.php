@@ -6,6 +6,7 @@ use App\Enums\RetentionType;
 use App\Enums\VideoType;
 use App\Jobs\x264Optimization;
 use App\Models\Video;
+use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use ProtoneMedia\LaravelFFMpeg\Support\FFMpeg;
@@ -14,7 +15,7 @@ class UploadVideo extends Component
 {
     use WithFileUploads;
 
-    public $video, $title, $type, $retention, $retention_type, $retention_value;
+    public $video, $title, $type, $retention, $retention_type, $retention_value, $password, $password_value;
 
     public function upload()
     {
@@ -47,7 +48,8 @@ class UploadVideo extends Component
                 'r_frame_rate' => $media->getVideoStream()->get('r_frame_rate'),
                 'avg_frame_rate' => $media->getVideoStream()->get('avg_frame_rate'),
                 'tags' => $media->getVideoStream()->get('tags'),
-            ]
+            ],
+            'password' => Hash::make($this->password_value),
         ]);
 
         // Create Thumb
@@ -74,6 +76,8 @@ class UploadVideo extends Component
             }
             $video->retention()->create(['type'=>$this->retention_type, 'value'=>$this->retention_value]);
         }
+
+
 
         toastr()->livewire()->addSuccess('Video uploaded! Tag: '.$video->tag);
         $this->dispatchBrowserEvent('resetform');
