@@ -75,7 +75,7 @@ class UploadVideo extends Component
             $video->retention()->create(['type'=>$this->retention_type, 'value'=>$this->retention_value]);
         }
 
-        smilify('success', 'Video uploaded!');
+        toastr()->livewire()->addSuccess('Video uploaded! Tag: '.$video->tag);
         $this->dispatchBrowserEvent('resetform');
         $this->emit('refreshVideos');
     }

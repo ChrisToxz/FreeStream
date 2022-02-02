@@ -21,5 +21,6 @@ class ShowVideos extends Component
         \Storage::disk('videos')->deleteDirectory($video->tag);
         $video->deleteOrFail();
         $this->emit('refreshVideos');
+        toastr()->livewire()->addSuccess('Video deleted!');
     }
 }

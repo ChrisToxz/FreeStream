@@ -48,6 +48,7 @@ class EditVideo extends Component
         }
 
         $video->updateOrFail(['title'=>$this->video->title]);
+        toastr()->livewire()->addSuccess('Video edited!');
         $this->emit('refreshVideos');
     }
 

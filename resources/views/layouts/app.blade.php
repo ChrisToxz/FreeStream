@@ -89,6 +89,8 @@
     </main>
     <livewire:modals/>
     @livewireScripts
+    @flasher_render <!-- this render all flasher notifications. -->
+    @flasher_livewire_render <!-- this render livewire notifications only. -->
     <script>
         $(document).ready(function(){
             $('[data-bs-toggle="tooltip"]').tooltip();

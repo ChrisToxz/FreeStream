@@ -16,6 +16,7 @@ class Settings extends Component
             $settings->$k = $setting;
         }
         $settings->save();
+        toastr()->livewire()->addSuccess('Settings saved!');
     }
 
 
