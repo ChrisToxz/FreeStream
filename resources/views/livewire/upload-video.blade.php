@@ -70,14 +70,22 @@
                             </div>
                             <div class="col-12" x-show="!isUploading">
                                 <button wire:click.prevent="upload" class="btn btn-outline-primary">Save video!</button>.
-{{--                                TODO: Reset button --}}
-{{--                                <button x-on:click.prevent="file = '', isFinished = 0" id="reset" class="btn btn-outline-danger">Reset</button>--}}
+                                <button x-on:click.prevent="file = '', isFinished = 0" id="reset" class="btn btn-outline-danger">Reset</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
+        </div>
     </section>
+    <script>
 
+        window.addEventListener('resetform', event => {
+
+            document.getElementById('reset').click()
+
+        })
+
+    </script>
 </div>
