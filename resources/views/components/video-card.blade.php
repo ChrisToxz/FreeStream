@@ -26,12 +26,22 @@
             @if(!$video->isFinished)
                 <livewire:show-video-progress :video="$video">
             @else
-                <p class="card-text">
+
                     <button class="btn btn-sm btn-outline-info bi-clipboard" onclick="copy('http://localhost/v/{{$video->tag}}')" data-bs-toggle="tooltip" data-bs-placement="top" title="Tag: {{$video->tag}}"> Copy link</button>
                     <button class="btn btn-sm btn-outline-primary bi-cloud-download" data-bs-toggle="tooltip" data-bs-placement="top" title="Tag: {{$video->tag}}"> Download</button>
-                    <button class="btn btn-sm btn-outline-secondary bi-pencil-fill" wire:click="$emit('showModal', 'edit-video', {{ $video->id }})"> Edit</button>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-sm btn-outline-secondary bi-pencil-fill" wire:click="$emit('showModal', 'edit-video', {{ $video->id }})"> Edit</button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span class="visually-hidden">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item bi-scissors" wire:click="$emit('showModal', 'trim-video', {{ $video->id }})">Trim video</a></li>
+                                <li><a class="dropdown-item" href="#">Rotate video</a></li>
+                                <li><a class="dropdown-item" href="#">Set custom thumbnail</a></li>
+                            </ul>
+                        </div>
                     <button type="button" class="btn btn-sm btn-outline-danger bi-trash-fill" wire:click.prevent="delete({{$video->id}})" id="button" value="delete"> Delete</button>
-                </p>
+
             @endif
         </div>
     </div>
