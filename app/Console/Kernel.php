@@ -23,6 +23,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->command('slipstream:checkretention')->everyTwoMinutes();
+        //TODO: Tricky, since it could delete video when uploaden, needs feadback
         $schedule->command('slipstream:clear')->everyThreeHours();
     }
 
