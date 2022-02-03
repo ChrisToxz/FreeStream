@@ -10,12 +10,11 @@
             <div x-show="!file" class="col-md-8 mx-auto">
                 <p class="text-center">
                 <div class="col-lg-12" >
-                    <!-- File Input -->
                     <form wire:submit.prevent="upload">
                         <div class="row justify-content-center" style="background-color: white;">
                                 @error('video') <span class="error">{{ $message }}</span> @enderror
                                 <input type="file" wire:model="video"  id="file" style="display: none;" x-ref="file" @change="file = $refs.file.files[0].name">
-                                <button type="button" class="btn btn-outline-dark" onclick="document.getElementById('file').click();">Select video</button>
+                                <button type="button" id="select-media" class="btn btn-outline-dark" onclick="document.getElementById('file').click();">Select video</button>
                         </div>
                     </form>
                     </p>
