@@ -23,6 +23,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->command('slipstream:checkretention')->everyTwoMinutes();
+        $schedule->command('slipstream:clear')->everyThreeHours();
     }
 
     /**

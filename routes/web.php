@@ -23,8 +23,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/test', function(){
 
-//    \Session::push('videos', 'test');
-        dd(\Session::get('videos', []));
+
+////    \Session::push('videos', 'test');
+//        dd(\Session::get('videos', []));
 //\Session::forget('videos');
 });
 
