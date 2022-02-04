@@ -49,11 +49,6 @@
                             Dashboard
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('settings') }}">
-                            Settings
-                        </a>
-                    </li>
                 </ul>
 
 
@@ -64,7 +59,9 @@
                         <a id="settingsDropdown" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             {{ Auth::user()->username }}
                         </a>
+
                         <div class="dropdown-menu dropdown-menu-end animate slideIn" aria-labelledby="settingsDropdown">
+                            <a class="dropdown-item px-4" href="{{ route('settings') }}">Settings</a>
                             <!-- Authentication -->
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
@@ -78,6 +75,7 @@
             </div>
         </div>
     </nav>
+
     <header class="d-flex py-3 bg-white shadow-sm border-bottom">
         <div class="container">
             @yield('title')
@@ -87,6 +85,7 @@
     <main class="">
         @yield('content')
     </main>
+
     <livewire:modals/>
     @livewireScripts
     @flasher_render <!-- this render all flasher notifications. -->
