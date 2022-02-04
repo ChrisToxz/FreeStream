@@ -4,6 +4,20 @@
 All changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.1.0](https://github.com/ChrisToxz/FreeStream/compare/v0.0.2...v0.1.0) (2022-02-04)
+### Features
+
+* Change username & password ([7870c3](https://github.com/ChrisToxz/FreeStream/commit/7870c35c31947953d979966a0e19a355b4442107))
+
+
+---
+
+<!--- BEGIN HEADER -->
+# Changelog
+
+All changes to this project will be documented in this file.
+<!--- END HEADER -->
+
 ## [0.0.2](https://github.com/ChrisToxz/FreeStream/compare/v0.0.1...v0.0.2) (2022-02-04)
 ### Features
 
