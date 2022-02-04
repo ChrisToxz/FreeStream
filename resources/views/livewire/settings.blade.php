@@ -1,4 +1,5 @@
 <div class="row">
+    <a class="dropdown-item px-4 text-center" wire:click="$emit('showModal', 'user-settings')">Click here for user settings</a>
     <div class="col-md-3 border-right">
         <div class="d-flex flex-column align-items-center text-center p-3 py-5">
             <span class="font-weight-bold">Powered by</span>
