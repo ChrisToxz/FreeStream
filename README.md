@@ -7,7 +7,7 @@
 
 <p align="center">
 <img src="https://shields.io/badge/-Unreleased-critical">
-<img src="https://shields.io/badge/-Still%20in%20development-critical">
+<img src="https://shields.io/badge/-PreAlpha-critical">
 </p>
 
 ## What is Slipstream?
