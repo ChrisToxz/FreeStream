@@ -49,7 +49,7 @@ class UploadVideo extends Component
                 'avg_frame_rate' => $media->getVideoStream()->get('avg_frame_rate'),
                 'tags' => $media->getVideoStream()->get('tags'),
             ],
-            'password' => Hash::make($this->password_value),
+            'password' => (!is_null($this->password_value)) ? Hash::make($this->password_value) : null,
         ]);
 
         // Create Thumb
