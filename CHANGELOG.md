@@ -4,6 +4,22 @@
 All changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.1.1](https://github.com/ChrisToxz/FreeStream/compare/v0.1.0...v0.1.1) (2022-02-06)
+### Bug Fixes
+
+* Store `null` if no password is specified ([3dd8fe](https://github.com/ChrisToxz/FreeStream/commit/3dd8fe6ab863034b18b21dbd7824186f8fc638ce))
+* Unprotected videos were hold by videoGate ([5a87ca](https://github.com/ChrisToxz/FreeStream/commit/5a87ca72ef52186f9a0ce1aedbd18e199db41681))
+* Video password bugs ([ab4a87](https://github.com/ChrisToxz/FreeStream/commit/ab4a87a4af3ad0a27754bda800639dcae90f45cc))
+
+
+---
+
+<!--- BEGIN HEADER -->
+# Changelog
+
+All changes to this project will be documented in this file.
+<!--- END HEADER -->
+
 ## [0.1.0](https://github.com/ChrisToxz/FreeStream/compare/v0.0.2...v0.1.0) (2022-02-04)
 ### Features
 
