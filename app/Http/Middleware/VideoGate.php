@@ -17,13 +17,16 @@ class VideoGate
      */
     public function handle($request, Closure $next)
     {
-        if(Video::findByTag($request->tag)){
-            if(in_array($request->tag, \Session::get('videos', []))){
-                return $next($request);
-            }else{
-                \Session::put('current-video', $request->tag);
-                return redirect()->route('gate');
+        if($video = Video::findByTag($request->tag)){
+            if($video->password) {
+                if (in_array($request->tag, \Session::get('videos', []))) {
+                    return $next($request);
+                } else {
+                    \Session::put('current-video', $request->tag);
+                    return redirect()->route('gate');
+                }
             }
         }
+        return $next($request);
     }
 }
