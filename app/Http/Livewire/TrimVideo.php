@@ -18,7 +18,7 @@ class TrimVideo extends Component
     public function trim(){
         $ff = \FFMpeg::fromDisk('videos')->open($this->video->originalpath);
         $ff->filters()->clip(TimeCode::fromSeconds(1), TimeCode::fromSeconds(5));
-        $ff->export()->toDisk('videos')->inFormat(new \FFMpeg\Format\Video\X264())->save('trimmed'.qu$this->video->originalpath);
+        $ff->export()->toDisk('videos')->inFormat(new \FFMpeg\Format\Video\X264())->save('trimmed'.$this->video->originalpath);
 
     }
 

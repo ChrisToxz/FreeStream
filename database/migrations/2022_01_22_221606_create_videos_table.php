@@ -17,7 +17,7 @@ class CreateVideosTable extends Migration
             $table->id();
             $table->string('tag');
             $table->string('title');
-            $table->string('original'); // original video hash filename
+            $table->string('original')->nullable(); // original video hash filename
             $table->string('streamhash')->nullable(); // filename/path of mp4/m3u8
             $table->enum('type', \App\Enums\VideoType::getValues())->default(\App\Enums\VideoType::Original());
             $table->json('info')->nullable();

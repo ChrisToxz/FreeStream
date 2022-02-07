@@ -5,7 +5,11 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <video src="{{ asset('/storage/videos/'.$video->tag.'/'.$video->original) }}"></video>
+            @if(!$video->original && $video->type == 3)
+                No trimming possible due missing original or editable file.
+            @else
+
+            <video src="{{ asset('/storage/videos/'.$video->tag.'/'.$video->EditableVideo) }}"></video>
             <form class="row">
                     <div class="col-md-6">
                         <label for="title" class="form-label float-start">Trim start</label>
@@ -20,6 +24,7 @@
                         <input type="range" class="form-range" id="customRange1">
                     </div>
             </form>
+                @endif
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
