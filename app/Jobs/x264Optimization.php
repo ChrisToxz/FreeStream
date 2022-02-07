@@ -31,7 +31,7 @@ class x264Optimization implements ShouldQueue
         $this->video = $video;
         $this->HLS = $HLS;
 
-        $this->prepareStatus(['video_tag' => $video->tag]);
+        $this->prepareStatus(['video_id' => $video->id]);
     }
 
     /**
