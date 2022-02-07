@@ -12,7 +12,7 @@ class ShowVideoProgress extends Component
 
     public function render()
     {
-        if($this->video->job->is_finished){
+        if($this->video->isfinished){
             // Refresh videos when finished to show buttons
             $this->emit('refreshVideos');
         }
