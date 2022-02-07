@@ -4,6 +4,20 @@
 All changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.1.2](https://github.com/ChrisToxz/FreeStream/compare/v0.1.1...v0.1.2) (2022-02-07)
+### Bug Fixes
+
+* Converting jobs status ([8b81e6](https://github.com/ChrisToxz/FreeStream/commit/8b81e6fcf48b5e429f5000de3b190930e65ff6fe))
+
+
+---
+
+<!--- BEGIN HEADER -->
+# Changelog
+
+All changes to this project will be documented in this file.
+<!--- END HEADER -->
+
 ## [0.1.1](https://github.com/ChrisToxz/FreeStream/compare/v0.1.0...v0.1.1) (2022-02-06)
 ### Bug Fixes
 
