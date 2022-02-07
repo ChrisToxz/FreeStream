@@ -4,6 +4,16 @@
 All changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.1.3](https://github.com/ChrisToxz/FreeStream/compare/v0.1.2...v0.1.3) (2022-02-07)
+
+---
+
+<!--- BEGIN HEADER -->
+# Changelog
+
+All changes to this project will be documented in this file.
+<!--- END HEADER -->
+
 ## [0.1.2](https://github.com/ChrisToxz/FreeStream/compare/v0.1.1...v0.1.2) (2022-02-07)
 ### Bug Fixes
 
