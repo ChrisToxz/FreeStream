@@ -124,7 +124,7 @@ class x264Optimization implements ShouldQueue
                     $segments("{$name}-{$format->getKiloBitrate()}-{$key}-%03d.ts");
                     $playlist("{$name}-{$format->getKiloBitrate()}-{$key}.m3u8");
                 })
-                ->toDisk('videos')->save($this->video->tag.'/'.$streamhash.'.m3u8');
+                ->toDisk('videos')->save($this->video->tag.'/stream/'.$streamhash.'.m3u8');
 
             $this->video->streamhash = $streamhash.'.m3u8';
             $this->video->save();
