@@ -81,6 +81,11 @@ class Video extends Model
         return $this['original'] ?: $this->streamhash;
     }
 
+    public function getEditableVideoPathAttribute()
+    {
+        return $this->tag.'/'.$this->getEditableVideoAttribute();
+    }
+
     public static function findByTag($tag){
         return self::where('tag', $tag)->firstOrFail();
     }

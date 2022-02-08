@@ -21,11 +21,11 @@
                                 type="video/mp4">
                         @elseif($video->type == 2)
                             <source
-                                src="{{ asset('/storage/videos/'.$video->tag.'/'.$video->streamhash) }}"
+                                src="{{ asset('/storage/videos/'.$video->tag.'/stream/'.$video->streamhash) }}"
                                 type="video/mp4">
                         @endif
                         <source
-                            src="{{ asset('/storage/videos/'.$video->tag.'/'.$video->streamhash) }}"
+                            src="{{ asset('/storage/videos/'.$video->tag.'/stream/'.$video->streamhash) }}"
                             type="application/x-mpegURL">
                     </video-js>
 

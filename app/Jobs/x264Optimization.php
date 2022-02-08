@@ -65,10 +65,10 @@ class x264Optimization implements ShouldQueue
         $highBitrateFormat = (new X264('libmp3lame', 'libx264'))->setKiloBitrate(101440); // 1440
 
         if(!$this->HLS){
-            FFMpeg::fromDisk('videos')->open($this->video->OriginalPath)
+            FFMpeg::fromDisk('videos')->open($this->video->editableVideoPath)
                 ->export()->onProgress(function ($percentage) {
                     $this->setProgressNow($percentage);
-                })->toDisk('videos')->inFormat($originalBitrateFormat)->save($this->video->tag.'/'.$streamhash.'.mp4');
+                })->toDisk('videos')->inFormat($originalBitrateFormat)->save($this->video->tag.'/stream/'.$streamhash.'.mp4');
 
             $this->video->streamhash = $streamhash.'.mp4';
             $this->video->save();
