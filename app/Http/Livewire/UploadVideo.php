@@ -57,17 +57,10 @@ class UploadVideo extends Component
 
         $this->video->storeAs($video->tag, $hash, 'videos');
 
-        switch($type){
-            case 1: // original
-                // File already stored, just save stream hash.
-                $this->video->streamhash = $hash;
-                break;
-            case 2: // x264
-                x264Optimization::dispatch($video);
-                break;
-            case 3: // x264 + HLS
-                x264Optimization::dispatch($video, 1);
-                break;
+        if($type == VideoType::Original){
+            $this->video->streamhash = $hash;
+        }else{
+            x264Optimization::dispatch($video, $type);
         }
 
         if($this->retention){

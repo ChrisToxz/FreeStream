@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Enums\VideoType;
 use App\Models\Video;
 use App\SlipstreamSettings;
 use FFMpeg\Format\Video\X264;
@@ -19,17 +20,17 @@ class x264Optimization implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, Trackable;
 
-    public $video, $HLS, $settings;
+    public $video, $type, $settings;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(Video $video, $HLS = 0, )
+    public function __construct(Video $video, $type = VideoType::X264)
     {
         $this->video = $video;
-        $this->HLS = $HLS;
+        $this->type = $type;
 
         $this->prepareStatus(['video_id' => $video->id]);
     }
@@ -64,7 +65,7 @@ class x264Optimization implements ShouldQueue
         $midBitrateFormat = (new X264('libmp3lame', 'libx264'))->setKiloBitrate(101080); // 1080
         $highBitrateFormat = (new X264('libmp3lame', 'libx264'))->setKiloBitrate(101440); // 1440
 
-        if(!$this->HLS){
+        if($this->type == VideoType::X264){
             FFMpeg::fromDisk('videos')->open($this->video->editableVideoPath)
                 ->export()->onProgress(function ($percentage) {
                     $this->setProgressNow($percentage);
@@ -72,7 +73,7 @@ class x264Optimization implements ShouldQueue
 
             $this->video->streamhash = $streamhash.'.mp4';
             $this->video->save();
-        }else{
+        }elseif($this->type == VideoType::Streamable){
             // init
             $ff = FFMpeg::fromDisk('videos')
                 ->open($this->video->OriginalPath)
