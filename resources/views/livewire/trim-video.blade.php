@@ -5,19 +5,23 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
+
+
             @if(!$video->original && $video->type == 3)
                 No trimming possible due missing original or editable file.
             @else
 
             <video src="{{ asset('/storage/videos/'.$video->tag.'/'.$video->EditableVideo) }}"></video>
+                @error('start') <span class="error">{{ $message }}</span> @enderror
+                @error('end') <span class="error">{{ $message }}</span> @enderror
             <form class="row">
                     <div class="col-md-6">
                         <label for="title" class="form-label float-start">Trim start</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" wire:model="start">
                     </div>
                     <div class="col-md-6">
                         <label for="title" class="form-label float-start">Trim end</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" wire:model="end">
                     </div>
                     <div class="col-12">
                         <label for="customRange1" class="form-label">Trimming range</label>
