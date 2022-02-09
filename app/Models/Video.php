@@ -39,7 +39,7 @@ class Video extends Model
     }
 
     public function job(){
-        return $this->hasOne(JobStatus::class);
+        return $this->hasOne(JobStatus::class)->latest();
     }
 
     public function addView()
