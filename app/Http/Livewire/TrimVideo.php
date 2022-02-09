@@ -37,6 +37,7 @@ class TrimVideo extends Component
             x264Optimization::dispatch($this->video, $this->video->type);
         }
         \Storage::disk('videos')->delete($old_originalpath);
+        $this->emit('refreshVideos');
     }
 
     public function render()
