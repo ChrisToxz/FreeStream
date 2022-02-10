@@ -1,3 +1,4 @@
+
 <div x-data="" class="modal-dialog modal-xl">
     <div class="modal-content">
         <div class="modal-header">
@@ -14,25 +15,51 @@
             <video src="{{ asset('/storage/videos/'.$video->tag.'/'.$video->EditableVideo) }}"></video>
                 @error('start') <span class="error">{{ $message }}</span> @enderror
                 @error('end') <span class="error">{{ $message }}</span> @enderror
-            <form class="row">
-                    <div class="col-md-6">
-                        <label for="title" class="form-label float-start">Trim start</label>
-                        <input type="text" class="form-control" wire:model="start">
+
+            <form class="row justify-content-md-center mt-3">
+                    <div class="col-md-10">
+                        <span class="text-black" id="amount"></span>
+                        <span class="text-body float-end" id="duration"></span>
+                        <div class="mt-1" id="slider-range"></div>
                     </div>
-                    <div class="col-md-6">
-                        <label for="title" class="form-label float-start">Trim end</label>
-                        <input type="text" class="form-control" wire:model="end">
-                    </div>
-                    <div class="col-12">
-                        <label for="customRange1" class="form-label">Trimming range</label>
-                        <input type="range" class="form-range" id="customRange1">
+
+                    <div class="col-10">
+                            <p class="text-body">
+
+                            </p>
+
                     </div>
             </form>
+
                 @endif
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             <button type="button" wire:click.prevent="trim()"  class="btn btn-primary">Save changes</button>
         </div>
+
+        <script>
+            $( function() {
+
+                // var start = new Date($( "#slider-range" ).slider( "values", 0 ) * 1000).toISOString().substr(11, 8);
+                // var end = new Date($( "#slider-range" ).slider( "values", 1 ) * 1000).toISOString().substr(11, 8);
+                $( "#slider-range" ).slider({
+                    range: true,
+                    min: 0,
+                    max: {{ $video->info->duration }},
+                    values: [ 0, {{ $video->info->duration }} ],
+                    slide: function( event, ui ) {
+                        var start = new Date($( "#slider-range" ).slider( "values", 0 ) * 1000).toISOString().substr(11, 8);
+                        var end = new Date($( "#slider-range" ).slider( "values", 1 ) * 1000).toISOString().substr(11, 8);
+                        $( "#amount" ).text( "Start " + start + " - End " + end );
+                        var duration = new Date(($( "#slider-range" ).slider( "values", 1 )-$( "#slider-range" ).slider( "values", 0 )) * 1000).toISOString().substr(11,8);
+                        $( "#duration" ).text("New duration: " + duration);
+                    }
+                });
+                var start = new Date($( "#slider-range" ).slider( "values", 0 ) * 1000).toISOString().substr(11, 8);
+                var end = new Date($( "#slider-range" ).slider( "values", 1 ) * 1000).toISOString().substr(11, 8);
+                $( "#amount" ).text( "Start " + start + " - End " + end );
+            } );
+        </script>
     </div>
 </div>
