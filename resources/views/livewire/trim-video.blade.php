@@ -50,8 +50,9 @@
                     slide: function( event, ui ) {
                         var start = new Date(ui.values[0] * 1000).toISOString().substr(11, 8);
                         var end = new Date(ui.values[1] * 1000).toISOString().substr(11, 8);
-                        $( "#amount" ).text( "Start " + start + " - End " + end );
                         var duration = new Date((ui.values[1]-ui.values[0]) * 1000).toISOString().substr(11,8);
+
+                        $( "#amount" ).text( "Start " + start + " - End " + end );
                         $( "#duration" ).text("New duration: " + duration);
                     }
                 });
