@@ -44,7 +44,7 @@ class TrimVideo implements ShouldQueue
         $old_originalpath = $this->video->editableVideoPath;
 
         $ff = \FFMpeg::fromDisk('videos')->open($old_originalpath);
-        $ff->filters()->clip(TimeCode::fromSeconds((int) $this->start), TimeCode::fromSeconds((int) $this->end));
+        $ff->filters()->clip(TimeCode::fromSeconds((float) $this->start), TimeCode::fromSeconds((float) $this->end));
         $ff->export()->toDisk('videos')->inFormat(new \FFMpeg\Format\Video\X264())->save($this->video->tag.'/'.$new_originalhash.'.mp4');
 
         $this->video->original = $new_originalhash.'.mp4';

@@ -1,4 +1,4 @@
-<div x-data="" class="modal-dialog modal-xl">
+<div x-data="{start:0, end:0}" class="modal-dialog modal-xl">
 
     <div class="modal-content">
         <div class="modal-header">
@@ -12,7 +12,7 @@
                 No trimming possible due missing original or editable file.
             @else
 
-                <video-js id=vid1 width=600 height=300 class="vjs-default-skin" controls>\
+                <video-js id=vid1 width=600 height=300 class="vjs-default-skin" controls>
                     @if($video->type == 1)
                         <source
                             src="{{ asset('/storage/videos/'.$video->tag.'/'.$video->original) }}"
@@ -44,19 +44,17 @@
                     </div>
             </form>
 
+
                 @endif
         </div>
+        <input type="hidden" id="start" wire:model.defer="start">
+        <input type="hidden" id="end" wire:model.defer="end">
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             <button type="button" wire:click.prevent="trim()"  class="btn btn-primary">Trim video</button>
         </div>
 
-
         <script>
-
-        </script>
-        <script>
-
             $( function() {
                 var player = videojs('vid1',{
                     fluid: true
@@ -71,19 +69,27 @@
                             player.currentTime(loopStart);
                         }
                     }
-
                 $( "#slider-range" ).slider({
                     range: true,
+                    step: 0.1,
                     min: 0,
                     max: {{ $video->info->duration }},
                     values: [ 0, {{ $video->info->duration }} ],
                     slide: function( event, ui ) {
+                        console.log(ui.values);
                         var start = new Date(ui.values[0] * 1000).toISOString().substr(11, 8);
                         var end = new Date(ui.values[1] * 1000).toISOString().substr(11, 8);
                         var duration = new Date((ui.values[1]-ui.values[0]) * 1000).toISOString().substr(11,8);
 
                         $( "#amount" ).text( "Start " + start + " - End " + end );
                         $( "#duration" ).text("New duration: " + duration);
+                        $("#start").val(ui.values[0]);
+                        $("#end").val(ui.values[1]);
+
+                        var element = document.getElementById('start');
+                        element.dispatchEvent(new Event('input'));
+                        var element = document.getElementById('end');
+                        element.dispatchEvent(new Event('input'));
 
                         player.currentTime(ui.values[ui.handleIndex]);
                         videojs.createTimeRange(ui.values[0],ui.values[1])

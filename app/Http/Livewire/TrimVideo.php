@@ -16,9 +16,10 @@ class TrimVideo extends Component
 
     public function trim(){
 
+
         $this->validate([
-            'start' => 'required|integer',
-            'end' => 'required|integer'
+            'start' => 'required|numeric',
+            'end' => 'required|numeric'
         ]);
 
         \App\Jobs\TrimVideo::dispatch($this->video, $this->start, $this->end);
