@@ -1,5 +1,5 @@
-
 <div x-data="" class="modal-dialog modal-xl">
+
     <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title">Trim video: {{$video->title}}</h5>
@@ -12,7 +12,21 @@
                 No trimming possible due missing original or editable file.
             @else
 
-            <video src="{{ asset('/storage/videos/'.$video->tag.'/'.$video->EditableVideo) }}"></video>
+                <video-js id=vid1 width=600 height=300 class="vjs-default-skin" controls>\
+                    @if($video->type == 1)
+                        <source
+                            src="{{ asset('/storage/videos/'.$video->tag.'/'.$video->original) }}"
+                            type="video/mp4">
+                    @elseif($video->type == 2)
+                        <source
+                            src="{{ asset('/storage/videos/'.$video->tag.'/stream/'.$video->streamhash) }}"
+                            type="video/mp4">
+                    @endif
+                    <source
+                        src="{{ asset('/storage/videos/'.$video->tag.'/stream/'.$video->streamhash) }}"
+                        type="application/x-mpegURL">
+                </video-js>
+
                 @error('start') <span class="error">{{ $message }}</span> @enderror
                 @error('end') <span class="error">{{ $message }}</span> @enderror
 
@@ -34,14 +48,30 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" wire:click.prevent="trim()"  class="btn btn-primary">Save changes</button>
+            <button type="button" wire:click.prevent="trim()"  class="btn btn-primary">Trim video</button>
         </div>
 
-        <script>
-            $( function() {
 
-                // var start = new Date($( "#slider-range" ).slider( "values", 0 ) * 1000).toISOString().substr(11, 8);
-                // var end = new Date($( "#slider-range" ).slider( "values", 1 ) * 1000).toISOString().substr(11, 8);
+        <script>
+
+        </script>
+        <script>
+
+            $( function() {
+                var player = videojs('vid1',{
+                    fluid: true
+                });
+                player.on('timeupdate', onVideoTimeupdate );
+
+                function onVideoTimeupdate() {
+                    var loopStart = parseFloat($( "#slider-range" ).slider( "values", 0 ));
+                    var loopEnd = parseFloat($( "#slider-range" ).slider( "values", 1 ));
+
+                        if (player.currentTime() < loopStart || player.currentTime() >= loopEnd ) {
+                            player.currentTime(loopStart);
+                        }
+                    }
+
                 $( "#slider-range" ).slider({
                     range: true,
                     min: 0,
@@ -54,6 +84,9 @@
 
                         $( "#amount" ).text( "Start " + start + " - End " + end );
                         $( "#duration" ).text("New duration: " + duration);
+
+                        player.currentTime(ui.values[ui.handleIndex]);
+                        videojs.createTimeRange(ui.values[0],ui.values[1])
                     }
                 });
                 var start = new Date($( "#slider-range" ).slider( "values", 0 ) * 1000).toISOString().substr(11, 8);
