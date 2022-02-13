@@ -76,7 +76,7 @@ class x264Optimization implements ShouldQueue
         }elseif($this->type == VideoType::Streamable){
             // init
             $ff = FFMpeg::fromDisk('videos')
-                ->open($this->video->OriginalPath)
+                ->open($this->video->editableVideoPath)
                 ->exportForHLS()
                 ->setSegmentLength(10) // optional
                 ->setKeyFrameInterval(48) // optional
