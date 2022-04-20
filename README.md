@@ -1,13 +1,10 @@
 <p align="center">
 <img src="./newlogo.svg"><br>
-<a href="https://trello.com/b/duVOc3vL/slipstream">Trello page</a> - 
-<a href="https://discord.gg/exE6qpTExf">Discord</a> - 
-<a href="#">Reddit</a>
 </p>
 
 <p align="center">
 <img src="https://shields.io/badge/-Unreleased-critical">
-<img src="https://shields.io/badge/-PreAlpha-critical">
+<img src="https://shields.io/badge/-Still%20in%20development-critical">
 </p>
 
 ## What is Slipstream?
@@ -15,36 +12,39 @@ Slipstream is an open source self hosted video streaming platform which offers v
 
 ### Features
 
-- 🌐 Upload videos and share with a unique link
+- 🌐 Upload videos & images and share with an unique link
+
+### Current development
+
 - 📼 x264 conversion for web optimization
 - 📼 x264 + HLS conversion for streamable videos
 - 🚮 Retention policy to delete videos automatically based on views count or specific date/time
-- 🔑 Access policy to protect videos with a password
 
-#### Confirmed upcoming features <sub><sup>in random order</sup></sub>
+### Confirmed upcoming features
 
-
-
-- ✂ Crop, trim & rotate video 
+- ✂ Crop, trim & rotate media 
 - 📸 Custom thumbnail timestamp
 - 🖼 Inline video preview & VTT thumbnails
 - ™ Picture/text watermark
-- 🔓 Public videos (public dashboard with selected videos)
+- 🔓 Public media (public dashboard with selected media)
 - 📃 Public & private playlists
 - 🌐 Embed videos externally
 - 👯‍♂️ GIF support
-- 👍 Video comments & likes
+- 👍 Media comments & likes
 - 🐌 Custom links
-- 🔐 One single-session share link
 - 👥 Multiple users 
+- 🔑 Password access policy
 - 🔑 IP based access policy
-- 💾 Mount folder to process videos automatically without uploading them manually
+- 🔐 Single session/visit policy
+- 🔲 Upload API for screenshot tools
+- 💾 Mount folder to process media automatically without uploading them manually
+
 
 ## Requirements
-Webserver (Apache/nginx)\
-PHP 8.0.*\
-Database (MySQL/MariaDB)\
-[FFmpeg](https://www.ffmpeg.org/about.html) \
+Webserver\
+PHP\
+DB\
+ffmpeg\
 ...
 
 
